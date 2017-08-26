@@ -1,7 +1,7 @@
 # DynamicForms
-Dynamically generate view/edit forms from objects and cursors via a "markup syntax” in your code.
+Dynamically generate UI forms from objects or cursors via a "markup syntax” in your code.
 
-(More documentation will be added here soon as the project is migrated from CodePlex VFPX to GitHub.
+(Note: Documentation pages are in the process of being migrated from the original VFPx/CodePlex site to this GitHub repo.)
 
 ![Dynamic Forms Logo](Documentation/Images/Dynamic%20Forms%20Logo.jpg "Dynamic Forms Logo")
 
@@ -71,12 +71,14 @@ The following form was generated strictly from markup syntax using the DynamicFo
 [![SNAGHTML195fba9c](http://download-codeplex.sec.s-msft.com/Download?ProjectName=vfpx&DownloadId=523765 "SNAGHTML195fba9c")](http://download-codeplex.sec.s-msft.com/Download?ProjectName=vfpx&DownloadId=523764)
 
 <a name="main_sample_code"></a>
+### Code / Markup
 
-Here is the markup syntax that was used to generate the above sample form. It is only a partial display of all the capabilities that the markup syntax brings to form declarative form layout.
+Here is the markup syntax that was used to generate the above sample form. It is only a partial display of all the capabilities that the markup syntax brings to declarative form layout.
 
 _(See the [complete markup guide](#markup_syntax) for full details)_
 
-<div style="margin-left: 0px; margin-right: -60px;">[![image](http://download-codeplex.sec.s-msft.com/Download?ProjectName=vfpx&DownloadId=523767 "image")](http://download-codeplex.sec.s-msft.com/Download?ProjectName=vfpx&DownloadId=523766)</div>
+* * *
+[![image](http://download-codeplex.sec.s-msft.com/Download?ProjectName=vfpx&DownloadId=523767 "image")](http://download-codeplex.sec.s-msft.com/Download?ProjectName=vfpx&DownloadId=523766)
 
 * * *
 
@@ -90,13 +92,16 @@ The basic flow goes like this:
 
 <a name="step1"></a>
 
-**Step 1**: Working with Cursors - Open and arrange the cursor(s) that you want to display on the form. You can reference more than one Cursor/Alias/Table/View in your layout. Be sure to locate the record pointer(s) to the correct record(s) before launching the form.
+**Step 1**: Data source(s) for the UI controls
+
+Note: You can mix-and-match any of these data sources when building a form.
+
+>**Working with Cursors** - Open and arrange the cursor(s) that you want to display on the form. You can reference more than one Cursor/Alias/Table/View in your layout. Be sure to locate the record pointer(s) to the correct record(s) before launching the form.
  
-Working with an Object – Create or populate an object with various properties (aka oDataObject).
+>**Working with an Object** – Create or populate an object with various properties (aka oDataObject).
 
-Working with Variables – Declare and define variables as Public or Private variables to bind the form control to.
+>**Working with Variables** – Declare and define variables as Public or Private variables to bind the form control to.
 
-Note: You can mix-and-match any of the above when building your form.
 
 <a name="step2"></a>
 
@@ -127,8 +132,10 @@ For Public/Private, no additional settings are required. Just use the variable n
 <a name="step4"></a>
 
 **Step 4**: Set any other options/properties on loForm and/or loForm.oRenderEngine. 
-[Learn more about the main Form layout and properties](http://vfpx.codeplex.com/wikipage?title=Dynamic%20Form%20Main%20Form%20Layout) here.
-[Learn more about the RenderEngine Class Properties](http://vfpx.codeplex.com/wikipage?title=Dynamic%20Forms%20Properties) here.
+
+>[Learn more about the main Form layout and properties](http://vfpx.codeplex.com/wikipage?title=Dynamic%20Form%20Main%20Form%20Layout) here.
+
+>[Learn more about the RenderEngine Class Properties](http://vfpx.codeplex.com/wikipage?title=Dynamic%20Forms%20Properties) here.
 
 <a name="step5"></a>
 
@@ -154,7 +161,7 @@ Even with rendering errors, the form can still be displayed to the users (as sho
 
 **Step 6**: Call <font face="Courier New">loForm.Show()</font> to display the form to the user:
 
-<div style="margin-left: 45px;"><font face="Courier New">     loForm.Show()</font>
+<div style="margin-left: 45px;"><font face="Courier New">loForm.Show()</font>
 
 By default, a Modal form is created, but this can be a Modeless form by passing a value of zero as the first parameter to Show().
 
@@ -269,7 +276,7 @@ After you define the layout markup string, assign it to the <font face="Courier 
 
 ### Additional supported feature in the Markup syntax
 
-As of ver 1.4.0 and later, you can also set any property of the Render Engine, Form, or render Container in the markup block. See [this page](http://vfpx.codeplex.com/wikipage?title=Dynamic%20Form%20Example%202) for more details.
+You can also set any property of the Render Engine, Form, or render Container in the markup block. See [this page](http://vfpx.codeplex.com/wikipage?title=Dynamic%20Form%20Example%202) for more details.
 
 This allows you to entirely configure and drive all properties from the markup, without having to do it through your FoxPro code. A nice feature for anyone who wants to store fully configured form definitions in a lookup table, or those who prefer the markup technique better than the code technique.
 
@@ -278,21 +285,25 @@ This allows you to entirely configure and drive all properties from the markup, 
 Note: For a complete walkthrough of these markup examples, please watch **Video #1** – [Introduction and Demos](http://bit.ly/DynamicForms-Video-1).
 
 **All Fields/Properties**
+
 By default, ALL fields on the <font face="Courier New">oDataObject</font> or <font face="Courier New">cAlias</font> target will be displayed if no string is assigned to <font face="Courier New">cBodyMarkup</font>. It is the equivalent of:
 
 <pre>lcBodyMarkup = ""    or    lcBodyMarkup = "*"</pre>
 
 **Specifying selected Properties, Fields, or variables**
+
 If you do not want to display ALL fields or properties, then you can specify only the selected ones you want to display:
 
 <pre>lcBodyMarkup = "some_field1  | some_field_2  |some_field_3 | some_field_4 | ... |"</pre>
 
 **Adding styling attributes to the markup**
+
 In addition to specifying the controlsources, you can also include styling attributes to control all native properties on the generated control, or create other effects to control the rendered form view:
 
 <pre>lcBodyMarkup = "some_field1 .width = 100 .caption = 'Some caption' |...|"</pre>
 
 **Specifying alias name(s) within ControlSource**
+
 A global alias name can be set on oRenderEngine.cAlias, but you can override here to specify other aliases as shown:
 
 <pre>lcBodyMarkup = "MyOtherAlias.some_field1 .width = 100 .caption = 'Some caption' | some_field_2 .width = 300 | ... |"</pre>
@@ -310,6 +321,7 @@ Once you have defined your markup layout, pass it to the RenderEngine like this:
 <pre>loForm.cBodyMarkup = "...layout markup text..."</pre>
 
 **Attributes**
+
 Each markup "attribute" maps to a native FoxPro property by the same name and they are applied just as you would do in FoxPro code or in the Properties window. Every native FoxPro property is supported, as well as custom properties if you are using a custom class. Please report any issues if you find one that is not support or interpreted properly.
 
 If you reference a custom class in the :class attribute, you can also specify its .<font face="Courier New">classlibrary</font> attribute (only required if the classlibrary or procedure is not already in place via Set ClassLib or Set Procedure).
@@ -320,7 +332,9 @@ If you reference a custom class in the :class attribute, you can also specify it
 
 Additionally, the following special attributes are supported to control layout and flow of the controls:
 
+
 <div style="margin-left: 50px;">
+<a name="columns"></a>
 
 <pre>.column 
 .margin-bottom
@@ -329,32 +343,29 @@ Additionally, the following special attributes are supported to control layout a
 .row 
 .row-increment 
 .render-if
-.set-focus</pre>
-
+.set-focus
+.column = n</pre>
 </div>
 
-<a name="columns"></a>
 
-<pre>.column = n </pre>
-
-<div style="margin-bottom: 20px; margin-left: 45px; margin-top: -20px;">(Optional) Most forms can be rendered in a single “column”, but you can move the flow to the top of the next “column” by specify a column number to generate the control into. The default column is 1, but the RenderEngine will increment to the next column once the render container reaches the max height specified in the <font face="Courier New">oRenderEngine.nColumnHeight</font> property.
+<div style="margin-left: 45px;">(Optional) Most forms can be rendered in a single “column”, but you can move the flow to the top of the next “column” by specify a column number to generate the control into. The default column is 1, but the RenderEngine will increment to the next column once the render container reaches the max height specified in the <font face="Courier New">oRenderEngine.nColumnHeight</font> property.
 You can also advance the column location yourself by including this attribute on any one control, and then flow of remaining controls continues in the specified column, and will wrap to the next column if <font face="Courier New">oRenderEngine.nMaxHeight</font> is reached.</div>
 
-<div style="margin-left: 45px; margin-right: -45px;" align="center">[![SNAGHTML5e028c84](http://download-codeplex.sec.s-msft.com/Download?ProjectName=vfpx&DownloadId=483863 "SNAGHTML5e028c84")](http://download-codeplex.sec.s-msft.com/Download?ProjectName=vfpx&DownloadId=483862)</div>
+[![SNAGHTML5e028c84](http://download-codeplex.sec.s-msft.com/Download?ProjectName=vfpx&DownloadId=483863 "SNAGHTML5e028c84")](http://download-codeplex.sec.s-msft.com/Download?ProjectName=vfpx&DownloadId=483862)
 
 <pre>.margin-top = n</pre>
 
-<div style="margin-bottom: 20px; margin-left: 45px; margin-top: -20px;">Adds additional spacing between the previous row and the current row, so that the current is pushed down from the previous.
+<div style="margin-left: 45px;">Adds additional spacing between the previous row and the current row, so that the current is pushed down from the previous.
 'n' is the number of pixels</div>
 
 <pre>.margin-bottom = n </pre>
 
-<div style="margin-bottom: 20px; margin-left: 45px; margin-top: -20px;">Adds additional spacing below the current row (after it's rendered), so that the NEXT row will be pushed further down.
+<div style="margin-left: 45px;">Adds additional spacing below the current row (after it's rendered), so that the NEXT row will be pushed further down.
 'n' is the number of pixels</div>
 
 <pre>.margin-left = n</pre>
 
-<div style="margin-bottom: 20px; margin-left: 45px; margin-top: -20px;">
+<div style="margin-left: 45px;">
 
 Adds additional to the left of the control so as to create more space between the previous control or column left edge.
 'n' is the number of pixels
@@ -365,7 +376,7 @@ Adds additional to the left of the control so as to create more space between th
 
 <pre>.row-increment = n</pre>
 
-<div style="margin-bottom: 20px; margin-left: 45px; margin-top: -20px;">
+<div style="margin-left: 45px;">
 
 Instructs the engine to skip down 'n' number of rows (default is 1).
 The row height is controlled by the <font face="Courier New">nVerticalSpacing</font> property on the RenderEngine.
@@ -381,7 +392,7 @@ use .<font face="Courier New">row-increment = 0</font> as shown here:
 
 <pre>.render-if = </pre>
 
-<div style="margin-bottom: 20px; margin-left: 45px; margin-top: -20px;">
+<div style="margin-left: 45px;">
 
 You can include .<font face="Courier New">render-if = (SomeExpressionOrFunctionCall())</font> to conditionally render the control.
 
@@ -391,7 +402,7 @@ You can include .<font face="Courier New">render-if = (SomeExpressionOrFunctionC
 
 <pre>.set-focus = .t. </pre>
 
-<div style="margin-bottom: 20px; margin-left: 45px; margin-top: -20px;">
+<div style="margin-left: 45px;">
 
 This attribute, when used on a field markup, indicates this control is to have focus when form is shown.
 
@@ -401,10 +412,10 @@ This attribute, when used on a field markup, indicates this control is to have f
 
 You can achieve absolute positioning of any control using the native FoxPro Top and Left properties as attributes:
 
-> <pre>.top = n 
-> .left = n </pre>
+<pre>.top = n 
+.left = n </pre>
 
-<div style="margin-bottom: 20px; margin-left: 45px; margin-top: -20px;">Once a control has been rendered using an absolute position, the next control in cBodyMarkup will resume rendering flow from this last render location.</div>
+<div style="margin-left: 45px;">Once a control has been rendered using an absolute position, the next control in cBodyMarkup will resume rendering flow from this last render location.</div>
 
 <a name="function_calls"></a>
 
@@ -414,11 +425,11 @@ You can use function calls for any attribute value, as long as the function retu
 
 Examples:
 
-> <pre>.caption = (GetCaptionForBlah())</pre>
-> 
-> <pre>.enabled = (UserIsAdmin())</pre>
-> 
-> <pre>.tooltiptext = (pcSomePrivateStringVar)</pre>
+<pre>.caption = (GetCaptionForBlah())</pre>
+
+<pre>.enabled = (UserIsAdmin())</pre>
+
+<pre>.tooltiptext = (pcSomePrivateStringVar)</pre>
 
 <a name="field_labels"></a>
 
@@ -426,10 +437,11 @@ Examples:
 
 Field labels will be automatically added for each UI controls that is bound to an property, field, or variable.
 
-1\. The default Caption for each label is the name of the property/field/variables specified in the control source.
-2\. Underscore characters in the property/field/variable names will be converted to a space for cleaner caption text.
-3\. You can override the label caption by using  .<font face="Courier New">label.caption = 'Blah'</font> attribute.
-4\. You can prevent a label from being displayed by setting <font face="Courier New">.label.visible = .f.</font>5\. You can set ANY FoxPro property on the label by using <font face="Courier New">'label.</font>' a prefix on the attribute:
+1. The default Caption for each label is the name of the property/field/variables specified in the control source.
+2. Underscore characters in the property/field/variable names will be converted to a space for cleaner caption text.
+3. You can override the label caption by using  .<font face="Courier New">label.caption = 'Blah'</font> attribute.
+4. You can prevent a label from being displayed by setting <font face="Courier New">.label.visible = .f.</font>
+5. You can set ANY FoxPro property on the label by using <font face="Courier New">'label.</font>' a prefix on the attribute:
     i.e:
 
 <div style="margin-left: 60px;">
@@ -440,11 +452,12 @@ Field labels will be automatically added for each UI controls that is bound to a
 
 </div>
 
-6\. By default, field labels are rendered to the left of the input control (inline with).  
-   Set <font face="Courier New">loForm.oRenderEngine.lLabelsAbove = .t.</font> to render the labels ABOVE the input controls:
+6. By default, field labels are rendered to the left of the input control (inline with).
+<div style="margin-left: 45px;">
+Set <font face="Courier New">loForm.oRenderEngine.lLabelsAbove = .t.</font> to render the labels ABOVE the input controls:
 
 ### [![SNAGHTML488f0b72](http://download-codeplex.sec.s-msft.com/Download?ProjectName=vfpx&DownloadId=482522 "SNAGHTML488f0b72")](http://download-codeplex.sec.s-msft.com/Download?ProjectName=vfpx&DownloadId=482521)
-
+</div>
 <a name="custom_return_values"></a>
 
 ### Return values from the form
