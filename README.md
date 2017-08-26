@@ -9,24 +9,25 @@ Original CodePlex link: https://vfpx.codeplex.com/wikipage?title=Dynamic%20Forms
 
 author: Matt Slay
 
-credits: Jim Nelson, Dough Hennig, Rick Schummer
+credits: Jim Nelson, Doug Hennig, Rick Schummer
+
+* * *
 
 **Discussion Group**
 
-**Web access:**  [Join the discussion group for development or usage discussions.](https://groups.google.com/forum/?fromgroups#!forum/foxprodynamicforms)
+[Join the discussion group to post or read usage discussions.](https://groups.google.com/forum/?fromgroups#!forum/foxprodynamicforms)
 
-After joining the group, post through the web access, or email discussion questions (with screenshots) to:
+After joining the group, post through web access in the discussion portal, or email discussion questions (with screenshots) to:
 
      [foxprodynamicforms@googlegroups.com](mailto:foxprodynamicforms@googlegroups.com)
+* * *
 
 **Videos**
 
-Video #1 – [Introduction and Demos](http://bit.ly/DynamicForms-Video-1)  (8:15)
-Video #2 – [Exploring the class PRG and code sample](http://bit.ly/Dynamic-Forms-Video-2)  (9:09)
+* Video #1 – [Introduction and Demos](http://bit.ly/DynamicForms-Video-1)  (8:15)
+* Video #2 – [Exploring the class PRG and code sample](http://bit.ly/Dynamic-Forms-Video-2)  (9:09)
 
-![38236](http://i3.codeplex.com/Download?ProjectName=VFPX&DownloadId=38236 "38236")
-
-<div style="margin-right: -250px;">
+* * *
 
 ### What are Dynamic Forms?
 
@@ -42,22 +43,22 @@ The procedural code at the top of the source code PRG serves as an example of ho
 
 ### Documentation Links
 
-[Sample](#sample)
-[Basic Usage](#basic_usage)
-[Binding Form Controls to Data](#binding)
-[Markup Syntax – Designing your form layout](#markup_syntax)
-[Field Labels](#field_labels)
-[Header, Body,  and Footer areas on the Form](http://vfpx.codeplex.com/wikipage?title=Dynamic%20Form%20Main%20Form%20Layout)
-[Return Values from the form](#custom_return_values)
-[Restoring data changes  made by the user](http://vfpx.codeplex.com/wikipage?title=Restoring%20Data%20Values)
-[Dynamic Form Class - Properties and Methods](http://vfpx.codeplex.com/wikipage?title=Dynamic%20Forms%20Properties)
-[Additional Markup support for setting Form and Render Engine properties](http://vfpx.codeplex.com/wikipage?title=Dynamic%20Form%20Example%202)
+- [Sample](#sample)
+- [Basic Usage](#basic_usage)
+- [Binding Form Controls to Data](#binding)
+- [Markup Syntax – Designing your form layout](#markup_syntax)
+- [Field Labels](#field_labels)
+- [Header, Body,  and Footer areas on the Form](http://vfpx.codeplex.com/wikipage?title=Dynamic%20Form%20Main%20Form%20Layout)
+- [Return Values from the form](#custom_return_values)
+- [Restoring data changes  made by the user](http://vfpx.codeplex.com/wikipage?title=Restoring%20Data%20Values)
+- [Dynamic Form Class - Properties and Methods](http://vfpx.codeplex.com/wikipage?title=Dynamic%20Forms%20Properties)
+- [Additional Markup support for setting Form and Render Engine properties](http://vfpx.codeplex.com/wikipage?title=Dynamic%20Form%20Example%202)
 
 Other references:
-[Dynamic Form Render Engine Class - Properties and Methods](http://vfpx.codeplex.com/wikipage?title=Dynamic%20Forms%20Properties#RenderEngine)
-[Subclassing DynamicForm and DynamicFormRenderEngine](http://vfpx.codeplex.com/wikipage?title=Dynamic%20Forms%20Advanced%20Topics#subclassing)
-[Working with Business Objects](http://vfpx.codeplex.com/wikipage?title=Using%20Dynamic%20Forms%20with%20Business%20Objects)
-[Change Log](http://vfpx.codeplex.com/wikipage?title=Change%20Log)
+- [Dynamic Form Render Engine Class - Properties and Methods](http://vfpx.codeplex.com/wikipage?title=Dynamic%20Forms%20Properties#RenderEngine)
+- [Subclassing DynamicForm and DynamicFormRenderEngine](http://vfpx.codeplex.com/wikipage?title=Dynamic%20Forms%20Advanced%20Topics#subclassing)
+- [Working with Business Objects](http://vfpx.codeplex.com/wikipage?title=Using%20Dynamic%20Forms%20with%20Business%20Objects)
+- [Change Log](http://vfpx.codeplex.com/wikipage?title=Change%20Log)
 
 <a name="sample"></a>
 
@@ -117,7 +118,9 @@ Set the <font face="Courier New">cBodyMarkup</font> property with your markup sy
 
 <div style="margin-left: 50px;">
 For cursors, set <font face="Courier New">loForm.cAlias</font> to the alias to which your layout will bind.
+
 For objects, set <font face="Courier New">loForm.oDataObject</font> to the object reference to which you layout will bind.
+
 For Public/Private, no additional settings are required. Just use the variable name in ControlSource field of the layout.
 </div>
 
@@ -217,8 +220,8 @@ If you are working with multiple aliases, you will need to include the target al
 **Binding to Objects**
 For objects, set <font face="Courier New">loForm.oDataObject</font> to the object reference to which your layout fields will bind.
 
-**Binding to variables
-**For Public/Private, no additional settings are required. Just use the variable name in ControlSource field of the layout.
+**Binding to variables**
+For Public/Private, no additional settings are required. Just use the variable name in ControlSource field of the layout.
 
 </div>
 
@@ -279,18 +282,18 @@ By default, ALL fields on the <font face="Courier New">oDataObject</font> or <fo
 
 <pre>lcBodyMarkup = ""    or    lcBodyMarkup = "*"</pre>
 
-**Specifying selected Properties, Fields, or variables
-**If you do not want to display ALL fields or properties, then you can specify only the selected ones you want to display:
+**Specifying selected Properties, Fields, or variables**
+If you do not want to display ALL fields or properties, then you can specify only the selected ones you want to display:
 
 <pre>lcBodyMarkup = "some_field1  | some_field_2  |some_field_3 | some_field_4 | ... |"</pre>
 
-**Adding styling attributes to the markup
-**In addition to specifying the controlsources, you can also include styling attributes to control all native properties on the generated control, or create other effects to control the rendered form view:
+**Adding styling attributes to the markup**
+In addition to specifying the controlsources, you can also include styling attributes to control all native properties on the generated control, or create other effects to control the rendered form view:
 
 <pre>lcBodyMarkup = "some_field1 .width = 100 .caption = 'Some caption' |...|"</pre>
 
-**Specifying alias name(s) within ControlSource
-**A global alias name can be set on oRenderEngine.cAlias, but you can override here to specify other aliases as shown:
+**Specifying alias name(s) within ControlSource**
+A global alias name can be set on oRenderEngine.cAlias, but you can override here to specify other aliases as shown:
 
 <pre>lcBodyMarkup = "MyOtherAlias.some_field1 .width = 100 .caption = 'Some caption' | some_field_2 .width = 300 | ... |"</pre>
 
@@ -307,7 +310,6 @@ Once you have defined your markup layout, pass it to the RenderEngine like this:
 <pre>loForm.cBodyMarkup = "...layout markup text..."</pre>
 
 **Attributes**
-
 Each markup "attribute" maps to a native FoxPro property by the same name and they are applied just as you would do in FoxPro code or in the Properties window. Every native FoxPro property is supported, as well as custom properties if you are using a custom class. Please report any issues if you find one that is not support or interpreted properly.
 
 If you reference a custom class in the :class attribute, you can also specify its .<font face="Courier New">classlibrary</font> attribute (only required if the classlibrary or procedure is not already in place via Set ClassLib or Set Procedure).
