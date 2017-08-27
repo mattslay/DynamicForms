@@ -1,7 +1,5 @@
-/Source/DeployGoFish.ps1
-/Source/DeployGoFish_Source.ps1
-/Source/DeployGoFish.bat
 *.bak
+*.fxp
 FOXUSER.*
 *_ref.*
 .hg

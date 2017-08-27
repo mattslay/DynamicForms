@@ -221,8 +221,8 @@ EndIf
 
 Define Class DynamicForm as Form
 
-  	cVersion = '1.8.2'
-  	cVersionFull = '1.8.2 Beta - September 29, 2014'
+  	cVersion = '1.9.0'
+  	cVersionFull = '1.9.0 Production Release - August 27, 2017'
   	Caption = ''
 	*-- Binding form fields to a cursor/alias...
 	cAlias = ''                 && The cursor/alias that your form fields bind to. Make sure this alias is opened and positioned to the correct record.
@@ -572,8 +572,8 @@ Define Class DynamicFormRenderEngine as Custom
 	*-- See website for complete documentation.
 	*-- https://github.com/mattslay/DynamicForms
 	
-  	cVersion = '1.8.2'
-  	cVersionFull = '1.8.2 Beta - September 29, 2014'
+  	cVersion = '1.9.0'
+  	cVersionFull = '1.9.0 Production Release - August 27, 2017'
 
 	cAlias = '' 		&& The name of a cursor or alias to which the cMarkup controls are bound
 
