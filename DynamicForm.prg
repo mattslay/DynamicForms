@@ -1,14 +1,11 @@
 *=======================================================================================================
-* Dynamic Form - 1.8.2 Beta - September 29, 2014 - 20140929
-*
+* Dynamic Form - 1.9.0 Production release - August 27, 2017 - 20170827
+*---------------------------------------------------------------------------------------
 * By: Matt Slay 
 *-------------------------------------------------------------------------------------------------------
-*--  BETA VERSION
-*-------------------------------------------------------------------------------------------------------
 *--
-*-- Web Site: http://vfpx.codeplex.com/wikipage?title=Dynamic%20Forms
+*-- Web Site: https://github.com/mattslay/DynamicForms
 *--
-*-- Check the site OFTEN, as this tool will be updated frequently during this alpha stage.
 *-- 
 *-- You can automatically download this Component and its updates through "Thor - Check for Updates".
 *--        To learn more about Thor and its Tools and Updaters for FoxPro, see: 
@@ -35,7 +32,7 @@
 *--======================================================================================= 
 *-- DOCUMENTAION - Visit this link to see FULL DOCUMENTAION pages:
 *--
-*--   http://vfpx.codeplex.com/wikipage?title=Dynamic%20Forms
+*--   https://github.com/mattslay/DynamicForms
 *--
 *-----------------------------------------------------------------------------------------
 *-- VIDEOS - 
@@ -45,6 +42,24 @@
 *--   Video #2 ? Exploring the class PRG and code sample (9:09) View here: http://bit.ly/Dynamic-Forms-Video-2
 *--
 *----------------------------------------------------------------------------------------- 
+*--
+*-- Version History
+*--
+*-- 1.9.0 Production release - August 27, 2017 - 20170827 (Migrated from VFPx/CodePlex to GitHub)
+*-- 1.8.2 Beta - September 29, 2014 - 20140929
+*-- 1.7.0 Alpha - October 31, 2013 - 20131031
+*-- 2012-10-18 = Alpha 1.5.0 released.
+*-- 2012-10-26 – Alpha 1.4.1 released.
+*-- 2012-10-23 – Alpha 1.4.0 released.
+*-- 2012-10-08 – Alpha 1.3.0 released.
+*-- 2012-09-25 – Alpha 1.2.0 released.
+*-- 2012-09-18 – Alpha 1.0.0 released.
+*-- 2012-09-04 – Public alpha release 0.9.0 released on VFPx.
+*-- 2012-08-31 – Dynamic Forms accepted as an official VFPx Project.
+*-- 2012-08-24 – Project proposal submitted to VFPx admins.
+*-- 2012-05-08 – Initial concept class created and the first ever Dynamic Form was generated from a few lines of code.
+*--
+*---------------------------------------------------------------------------------------
 
 Private lnPrice, laOptions[1], lnOption
 Private loForm as 'DynamicForm'
@@ -52,7 +67,7 @@ Local loObject, lcBodyMarkup
 
 *---- Step 1: Prepare the data...
 *--   As noted in the Documentation you can bind the form to table aliases and cursors, private or public variables, or Data Objects.
-*--   See http://vfpx.codeplex.com/wikipage?title=Dynamic%20Forms#binding
+*--   See https://github.com/mattslay/DynamicForms#binding
 *--
 *--   In this example, we'll build a Data Object in code so that we do not have to distribute a sample dbf with this project package.
 *--   Often, "Data Objects" come from table rows, via the Scatter command, or other object-building techniques. You then pass that
@@ -73,7 +88,7 @@ Local loObject, lcBodyMarkup
 	AddProperty(loObject , 'weight', 185)
 
 *-- Step 2: Define the UI layout string (similar to HTML / XAML markup) --------------------------------------------
-*-- See http://vfpx.codeplex.com/wikipage?title=Dynamic%20Forms#markup_syntax
+*-- See https://github.com/mattslay/DynamicForms#markup_syntax
 
 Text to lcBodyMarkup NoShow
 
@@ -135,11 +150,11 @@ laOptions[2] = 'Placard'
 laOptions[3] = 'Name Tag'
 
 *-- Step 3. Create an instance of DynamicForm class
-* See http://vfpx.codeplex.com/wikipage?title=Dynamic%20Forms#step3
+*-- See https://github.com/mattslay/DynamicForms#step3
 loForm = CreateObject('DynamicForm')
 
 *-- Step 4. Set a few properties on loForm to wire everything up and set rendering options...
-* See http://vfpx.codeplex.com/wikipage?title=Dynamic%20Forms#step4
+*-- See https://github.com/mattslay/DynamicForms#step4
 loForm.oDataObject = loObject && Set the data object that the form fields bind to
 
 loForm.Caption = 'Dynamic Forms'
@@ -159,14 +174,14 @@ loForm.cBodyMarkup = lcBodyMarkup
 							&& assign custom markup string to customize the footer area. See http://vfpx.codeplex.com/wikipage?title=Dynamic%20Form%20Main%20Form%20Layout
 
 *-- Step 5. Call Render method to create the controls in the Form
-*--			See http://vfpx.codeplex.com/wikipage?title=Dynamic%20Forms#step5
+*--			See https://github.com/mattslay/DynamicForms#step5
 llResult = loForm.Render()
 
 loForm.MinHeight = loForm.cntMain.Height
 loForm.MinWidth = loForm.cntMain.Width
 
 *-- Step 6. Show the form to the user
-* See http://vfpx.codeplex.com/wikipage?title=Dynamic%20Forms#step6
+*-- See https://github.com/mattslay/DynamicForms#step6
 If llResult = .t.
 	*-- Note. You have a chance here to programmatically change anything on the form or controls
 	*-- in any way needed before showing the form to the user...
@@ -185,7 +200,7 @@ Endif
 *-- on loForm and  loForm.oRenderEngine, and even access the rendered controls.
 
 *-- Step 7. Proceed with program flow based on whether user clicked Save or Cancel/closed the form.
-* See http://vfpx.codeplex.com/wikipage?title=Dynamic%20Forms#step7
+*-- See https://github.com/mattslay/DynamicForms#step7
 If Vartype(loForm) = 'O' and Lower(loForm.cReturn) = 'save'
 	*-- If Save is clicked, the controlsources are already updated with the new values from the UI.
 	*-- Do whatever local processing you need following the Save click by the user...
@@ -555,7 +570,7 @@ EndDefine
 Define Class DynamicFormRenderEngine as Custom
 
 	*-- See website for complete documentation.
-	*-- http.//vfpx.codeplex.com/wikipage?title=Dynamic%20Forms
+	*-- https://github.com/mattslay/DynamicForms
 	
   	cVersion = '1.8.2'
   	cVersionFull = '1.8.2 Beta - September 29, 2014'
