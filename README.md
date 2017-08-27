@@ -68,7 +68,7 @@ Other references:
 
 The following form was generated strictly from markup syntax using the DynamicForm class:
 
-[![SNAGHTML195fba9c](http://download-codeplex.sec.s-msft.com/Download?ProjectName=vfpx&DownloadId=523765 "SNAGHTML195fba9c")](http://download-codeplex.sec.s-msft.com/Download?ProjectName=vfpx&DownloadId=523764)
+![](Documentation/Images/SNAGHTML195fba9c_thumb.png "Sample form")
 
 <a name="main_sample_code"></a>
 ### Code / Markup
@@ -78,8 +78,7 @@ Here is the markup syntax that was used to generate the above sample form. It is
 _(See the [complete markup guide](#markup_syntax) for full details)_
 
 * * *
-[![image](http://download-codeplex.sec.s-msft.com/Download?ProjectName=vfpx&DownloadId=523767 "image")](http://download-codeplex.sec.s-msft.com/Download?ProjectName=vfpx&DownloadId=523766)
-
+![](Documentation/Images/code_sample_01.png "Code sample")
 * * *
 
 <a name="basic_usage"></a>
@@ -242,7 +241,7 @@ The syntax for the layout markup string is:
 
 <pre>[controlsource] .attribute1 = value1 .attribute2 = value2 | ...repeat for next field ... |</pre>
 
-[![image](http://download-codeplex.sec.s-msft.com/Download?ProjectName=vfpx&DownloadId=523771 "image")](http://download-codeplex.sec.s-msft.com/Download?ProjectName=vfpx&DownloadId=523770)
+![](Documentation/Images/syntax_example.png "Syntax example")
 
 [controlsource]
 
@@ -333,9 +332,8 @@ If you reference a custom class in the :class attribute, you can also specify it
 Additionally, the following special attributes are supported to control layout and flow of the controls:
 
 
-<div style="margin-left: 50px;">
 <a name="columns"></a>
-
+<div style="margin-left: 50px;">
 <pre>.column 
 .margin-bottom
 .margin-top 
@@ -343,15 +341,15 @@ Additionally, the following special attributes are supported to control layout a
 .row 
 .row-increment 
 .render-if
-.set-focus
-.column = n</pre>
+.set-focus</pre>
+
 </div>
 
 
 <div style="margin-left: 45px;">(Optional) Most forms can be rendered in a single “column”, but you can move the flow to the top of the next “column” by specify a column number to generate the control into. The default column is 1, but the RenderEngine will increment to the next column once the render container reaches the max height specified in the <font face="Courier New">oRenderEngine.nColumnHeight</font> property.
 You can also advance the column location yourself by including this attribute on any one control, and then flow of remaining controls continues in the specified column, and will wrap to the next column if <font face="Courier New">oRenderEngine.nMaxHeight</font> is reached.</div>
 
-[![SNAGHTML5e028c84](http://download-codeplex.sec.s-msft.com/Download?ProjectName=vfpx&DownloadId=483863 "SNAGHTML5e028c84")](http://download-codeplex.sec.s-msft.com/Download?ProjectName=vfpx&DownloadId=483862)
+![](Documentation/Images/SNAGHTML5e028c84_thumb.png "Column explanation")
 
 <pre>.margin-top = n</pre>
 
@@ -372,7 +370,7 @@ Adds additional to the left of the control so as to create more space between th
 
 </div>
 
-[![SNAGHTML45155f2](http://download-codeplex.sec.s-msft.com/Download?ProjectName=vfpx&DownloadId=485461 "SNAGHTML45155f2")](http://download-codeplex.sec.s-msft.com/Download?ProjectName=vfpx&DownloadId=485460)
+![](Documentation/Images/SNAGHTML45155f2_thumb.png "Margin explanation")
 
 <pre>.row-increment = n</pre>
 
@@ -456,7 +454,8 @@ Field labels will be automatically added for each UI controls that is bound to a
 <div style="margin-left: 45px;">
 Set <font face="Courier New">loForm.oRenderEngine.lLabelsAbove = .t.</font> to render the labels ABOVE the input controls:
 
-### [![SNAGHTML488f0b72](http://download-codeplex.sec.s-msft.com/Download?ProjectName=vfpx&DownloadId=482522 "SNAGHTML488f0b72")](http://download-codeplex.sec.s-msft.com/Download?ProjectName=vfpx&DownloadId=482521)
+![](Documentation/Images/SNAGHTML488f0b72_thumb.png "Label positions")
+
 </div>
 <a name="custom_return_values"></a>
 
@@ -528,11 +527,11 @@ and you can get details on each error from the <font face="Courier New">oErrors<
 
 You can also call the <font face="Courier New">oRenderEngine.GetErrorsAsString()</font> method to get the errors in a string format which can be easier to read than the working with the <font face="Courier New">oRenderEngine.oErrors</font> collection. You can see a sample of the error test and this method call in the source PRG file (in the sample procedural code at the top of the file).
 
-[![SNAGHTML4dd81694](http://download-codeplex.sec.s-msft.com/Download?ProjectName=vfpx&DownloadId=482869 "SNAGHTML4dd81694")](http://download-codeplex.sec.s-msft.com/Download?ProjectName=vfpx&DownloadId=482868)
+![](Documentation/Images/SNAGHTML4dd81694_thumb.png "Rendering errors")
 
 Even with rendering errors, the form can still be displayed, but the error controls on the form are really intended to be a Developer tool to help you find bugs in your markup. It will show a red error container in place of any controls which had rendering errors.
 
-[![image](http://download-codeplex.sec.s-msft.com/Download?ProjectName=vfpx&DownloadId=485465 "image")](http://download-codeplex.sec.s-msft.com/Download?ProjectName=vfpx&DownloadId=485464)
+![](Documentation/Images/image_thumb_7.png "Form sample with error field")
 
 ### Release history
 
