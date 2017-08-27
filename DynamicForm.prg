@@ -1,10 +1,10 @@
 *=======================================================================================================
-* Dynamic Form - 1.7.0 Alpha - October 31, 2013 - 20131031
+* Dynamic Form - 1.8.2 Beta - September 29, 2014 - 20140929
 *
 * By: Matt Slay 
 *-------------------------------------------------------------------------------------------------------
-*--
-*-- ALPHA WARNING!!! This is ALPHA software!!   Use with caution and testing!!!!
+*--  BETA VERSION
+*-------------------------------------------------------------------------------------------------------
 *--
 *-- Web Site: http://vfpx.codeplex.com/wikipage?title=Dynamic%20Forms
 *--
@@ -40,9 +40,9 @@
 *-----------------------------------------------------------------------------------------
 *-- VIDEOS - 
 *--
-*--   Video #1 ñ Introduction and Demos (8:15) View here:  http://bit.ly/DynamicForms-Video-1
+*--   Video #1 ? Introduction and Demos (8:15) View here:  http://bit.ly/DynamicForms-Video-1
 *--
-*--   Video #2 ñ Exploring the class PRG and code sample (9:09) View here: http://bit.ly/Dynamic-Forms-Video-2
+*--   Video #2 ? Exploring the class PRG and code sample (9:09) View here: http://bit.ly/Dynamic-Forms-Video-2
 *--
 *----------------------------------------------------------------------------------------- 
 
@@ -88,9 +88,9 @@ Text to lcBodyMarkup NoShow
 				.RowSourceType = 5 
 				.row-increment = 0 |
 
-	bool_3	.caption = 'You can specify BOLD captions.'
-					.FontBold = .t. 
-					.width = 400 |
+	bool_3		.caption = 'You can specify BOLD captions.'
+				.FontBold = .t. 
+				.width = 400 |
 
 	
 	first_name	.set-focus = .t. |
@@ -100,7 +100,7 @@ Text to lcBodyMarkup NoShow
 	notes		.class = 'editbox'
 				.width = 400
 				.height = 80
-				.anchor = 10  .ShowEditButton = .t.|
+				.anchor = 10|
 
 	lnPrice		.label.caption = 'List Price'
 				.label.alignment = 1 |
@@ -206,7 +206,9 @@ EndIf
 
 Define Class DynamicForm as Form
 
-  Caption = ''
+  	cVersion = '1.8.2'
+  	cVersionFull = '1.8.2 Beta - September 29, 2014'
+  	Caption = ''
 	*-- Binding form fields to a cursor/alias...
 	cAlias = ''                 && The cursor/alias that your form fields bind to. Make sure this alias is opened and positioned to the correct record.
 
@@ -518,7 +520,7 @@ Define Class DynamicForm as Form
 			This.oRenderEngine.RestoreData()
 		Endif
 	
-	Endproc
+	EndProc 
 	
 	*--------------------------------------------------------------------------------------- 
 	Procedure SetupRenderEngine
@@ -555,6 +557,9 @@ Define Class DynamicFormRenderEngine as Custom
 	*-- See website for complete documentation.
 	*-- http.//vfpx.codeplex.com/wikipage?title=Dynamic%20Forms
 	
+  	cVersion = '1.8.2'
+  	cVersionFull = '1.8.2 Beta - September 29, 2014'
+
 	cAlias = '' 		&& The name of a cursor or alias to which the cMarkup controls are bound
 
 	*-- These properties deal with the data object and properties/fields on it
@@ -595,16 +600,16 @@ Define Class DynamicFormRenderEngine as Custom
 	nHorizontalSpacing = .null.	&& Only used when rendering on the same row with .row=increment = '0'
 	nHorizontalLineLeft = 10
 	nControlHeight = 24 		&& I.e. the Height of Textboxes
-	nCheckboxHeight = 18		&& Default Height for Checkboxes
+	nCheckboxHeight = 24		&& Default Height for Checkboxes
 	nCommandButtonHeight = This.nControlHeight
 	nHorizontalLabelGap = 8 	&& The horizontal spacing between the label and the input control (when label are NOT above the inputs)
 	lLabelsAbove = .f.			&& Default position if for labels to be inline with the input control, to its left. Set this property to .t. to have the labels placed ABOVE the input control.
-	lAutoAdjustVerticalPositionAndHeight = .f.	&& Forces the .Top and .Height of each control to 'snap'ù to a grid system based on increments on
+	lAutoAdjustVerticalPositionAndHeight = .f.	&& Forces the .Top and .Height of each control to 'snap'? to a grid system based on increments on
 													&& nControlHeight and nVerticalSpacing. The helps keeps control vertically aligned when form spans two
 													&& columns or more. When enabling this feature, any .Top and .Height values specified in attributes may
-													&& be adjusted to ‚Äúsnap‚Äù to the grid system at its incremental points.
+													&& be adjusted to ìsnapî to the grid system at its incremental points.
 	lResizeContainer = .f.	&&Indicates if engine should resize (enlarge) oContainer to fit controls as they are added.
-	lGenerateEditButtonsForMemoFields = .t.	&& If the field is form a cursor or table and it is a mem data type
+	lGenerateEditButtonForEditBoxes = .t.	&& If the field is form a cursor or table and it is a mem data type
 											&& DF can render a small command button beside the editbox which can be used
 											&& to pop-up a larger editbox for the memo field. This pop-up can also be activated
 											&& by double-clicking in the editbox.
@@ -620,6 +625,8 @@ Define Class DynamicFormRenderEngine as Custom
 	nTextBoxWidth = 100
 	nEditBoxWidth = 200
 	nNumericFieldTextboxWidth = 100
+	nDateFieldTextboxWidth = 100
+	nDateTimeFieldTextboxWidth = 150
 	nCheckBoxWidth = 100
 	nControlWidth = 100		&& For any other controls besides the specific ones above
 
@@ -663,6 +670,17 @@ Define Class DynamicFormRenderEngine as Custom
 	cContainerClassLib = ''
 	cClassLib = '' && General classlib where controls can be found, if not specified above.
 	
+	*--------------------------------------------------------------------------------------- 
+	* Control classes based on data types. If specified, will override the default classes.
+	cCharacterClass = ''
+	cCharacterClassLib = ''
+	cNumericClass = ''
+	cNumericClassLib = ''
+	cDateClass = ''
+	cDateClassLib = ''
+	cDateTimeClass = ''
+	cDateTimeClassLib = ''
+	
 	*-- Consider these read only ---
 	nErrorCount = 0
 	oErrors = .null.
@@ -671,22 +689,8 @@ Define Class DynamicFormRenderEngine as Custom
 	*======================================================================================= 
 	*-- Private properties used/maintained by this class only!!
 	*Hidden nFieldCount
-	Hidden nColumnCount
-	Hidden nFieldsInCurrentColumn
-	Hidden oFieldList
-	Hidden nNextControlTop
-	Hidden nLastControlTop
-	Hidden nLastControlBottom
-	Hidden nLastControlLeft
-	Hidden nLastControlRight
-	Hidden nControlCount
-	Hidden lInHeader
-	Hidden lInBody
-	Hidden lInFooter
-	Hidden lLastControlRendered
-	Hidden cMarkup
-	Hidden aBackup[1]
-	Hidden aColumnWidths[1]
+	*Hidden nColumnCount
+	nNextControlTop = 0
 	
 	nColumnCount = 1
 	nFieldsInCurrentColumn = 1
@@ -832,7 +836,7 @@ Define Class DynamicFormRenderEngine as Custom
 
 	Endproc
 	
-	*---------------------------------------------------------------------------------------
+	*--------------------------------------------------------------------------------------- 
 	Procedure BuildMarkup
 
 		*-- This method combines the Header, Body, and Footer markup together, and mixes in a
@@ -850,6 +854,7 @@ Define Class DynamicFormRenderEngine as Custom
 						(This.lInHeader = .f.) |
 						
 						(This.nFirstControlTop = This.nLastControlTop + This.nFirstControlTop) |
+						(This.nFieldsInCurrentColumn = 1) |
 						(This.lInBody = .t.) |
 						<<This.cBodyMarkup>> |
 						(This.lInBody = .f.) |
@@ -883,7 +888,7 @@ Define Class DynamicFormRenderEngine as Custom
 	*--------------------------------------------------------------------------------------- 
 	Procedure AddControl
 		
-		Lparameters tcClass, tcClassLib, tcControlSourceField
+		Lparameters tcClass, tcClassLib, tcControlSourceField, tcDataType
 		
 		Local lcBaseClass, lcClass, lcClassLib, lcControlName, lcPrefix, llNewObject, loControl
 
@@ -894,6 +899,24 @@ Define Class DynamicFormRenderEngine as Custom
 			Case Lower(tcClass) == 'textbox'
 				lcClass = This.cTextBoxClass
 				lcClassLib = Evl(This.cTextboxClasslib, This.cClassLib)
+				
+				*-- These properties, if set, override the default class determined
+				If Vartype(tcDataType) = 'C'
+					Do Case
+						Case tcDataType = 'C'
+							lcClass = Evl(This.cCharacterClass, lcClass)
+							lcClassLib = Evl(This.cCharacterClassLib, lcClassLib)
+						Case tcDataType = 'N'
+							lcClass = Evl(This.cNumericClass, lcClass)
+							lcClassLib = Evl(This.cNumericClassLib, lcClassLib)
+						Case tcDataType = 'D'
+							lcClass = Evl(This.cDateClass, lcClass)
+							lcClassLib = Evl(This.cDateTimeClassLib, lcClassLib)
+						Case tcDataType = 'T'
+							lcClass = Evl(This.cDateTimeClass, lcClass)
+							lcClassLib = Evl(This.cDateTimeClassLib, lcClassLib)
+					Endcase
+				Endif
 			Case Lower(tcClass) == 'editbox'
 				lcClass = This.cEditboxClass
 				lcClassLib = Evl(This.cEditboxClasslib, This.cClassLib)
@@ -1128,12 +1151,12 @@ Define Class DynamicFormRenderEngine as Custom
 
 		*-- Create the control, (also adds it to the continer)
 		If !Empty(lcControlClass)
-			loControl = This.AddControl(lcControlClass, lcClassLib, toField.ControlSource)
+			loControl = This.AddControl(lcControlClass, lcClassLib, toField.ControlSource, lcDataType)
 		Else
 			Return
 		EndIf
 		
-		If PemStatus(loControl, 'oRenderEngine', 5)
+		If Type('loControl') = 'O' and PemStatus(loControl, 'oRenderEngine', 5)
 			loControl.oRenderEngine = this
 		Endif
 
@@ -1164,16 +1187,28 @@ Define Class DynamicFormRenderEngine as Custom
 
 		This.StyleControl(loControl, toField) && (Will also add the label)
 		
-		If This.lGenerateEditButtonsForMemoFields and (llIsMemoField or (PemStatus(toField, 'ShowEditButton',5) and This.GetValue(toField.ShowEditButton)))
-			ln = loControl.Anchor
-			loControl.Anchor = 0
-			loControl.Width = loControl.Width - 20
-			loControl.Anchor = ln
-			loEditButton = This.AddControl('DF_EditButton', '', '')
-			AddProperty(loEditButton, 'oEditBox', loControl)
-			loEditButton .Visible = .t.
-			loEditButton .Top = This.nLastControlTop + 2
- 			loEditButton .Left = This.nLastControlRight - 18
+		If This.lGenerateEditButtonForEditBoxes
+			If (Lower(loControl.baseclass) = 'editbox' or (PemStatus(toField, 'ShowEditButton',5) and This.GetValue(toField.ShowEditButton)))
+				If !(PemStatus(toField, 'ShowEditButton',5) and This.GetValue(toField.ShowEditButton) = .f.)
+					ln = loControl.Anchor
+					loControl.Anchor = 0
+					loControl.Width = loControl.Width - 20
+					loControl.Anchor = ln
+					loEditButton = This.AddControl('DF_EditButton', '', '')
+					AddProperty(loEditButton, 'oEditBox', loControl)
+					loEditButton.Visible = .t.
+					loEditButton.Top = This.nLastControlTop + 2
+		 			loEditButton.Left = This.nLastControlRight - 18 
+		 			Do case
+		 				Case InList(ln, 4, 6)
+		 					loEditButton.Anchor = 4
+		 				Case InList(ln, 8, 9, 10, 11, 13, 15)
+		 					loEditButton.Anchor = 8
+		 				Case InList(ln, 12, 14)
+		 					loEditButton.Anchor = 12
+		 			EndCase 
+				Endif
+			Endif
 		Endif
 		
 		
@@ -1187,7 +1222,7 @@ Define Class DynamicFormRenderEngine as Custom
 		
 		Local laFieldsFromAlias[1], llIsMemoField, lnFieldFromArray
 		
-		If Empty(tcCursor) or Empty(tcField)
+		If Empty(tcCursor) or Empty(tcField) or not Used(tcCursor)
 			Return .F.
 		Endif
 
@@ -1440,12 +1475,12 @@ Define Class DynamicFormRenderEngine as Custom
 		Local luValue
 		
 		*-- For controls like commandbutton, line, checkbox, picture, etc, we only need a small amount of vertical space between this control and the previous control
-		If !PemStatus(toControl, 'ControlSource', 5) or Lower(toControl.baseclass) = 'checkbox'
+		If !PemStatus(toControl, 'ControlSource', 5) or (Lower(toControl.baseclass) = 'checkbox' and this.lLabelsAbove)
 			lnSpacing = This.nVerticalSpacingNonControlSourceControls 
 		Else
 			lnSpacing = This.nVerticalSpacing
 		EndIf	
-		
+
 		With toControl
 			*-- Setting .row-increment = '0' will force this control to be generated on same row as last control.
 			If PemStatus(toField, 'row', 5)
@@ -1550,6 +1585,10 @@ Define Class DynamicFormRenderEngine as Custom
 					*-- Do nothing
 				Case toControl.DataType  $ 'N'
 					toControl.Width = Int(This.nNumericFieldTextboxWidth)			
+				Case toControl.DataType  $ 'D'
+					toControl.Width = Int(This.nDateFieldTextboxWidth)			
+				Case toControl.DataType  $ 'T'
+					toControl.Width = Int(This.nDateTimeFieldTextboxWidth)			
 				Case Lower(toControl.baseclass) = 'checkbox'
 					toControl.Width = Int(This.nCheckboxWidth)			
 				Case Lower(toControl.baseclass) = 'textbox'
@@ -1845,7 +1884,6 @@ Define Class DynamicFormRenderEngine as Custom
 				lcValue = Substr(lcValue, loMatch.firstindex + Len(loMatch.value) + 1)  && Now pull out the value
 				lcValue = Alltrim(lcValue, ' ', ',', Chr(9), Chr(10), Chr(13), This.cFieldDelimiterPattern) && Trim off delimiters and white space
 
-				
 				*** JRN 9/13/2012 Properties to be EVAL'd are wrapped in ' (' + lcValue + ')'
 				*** note that they can be EVAL'd directly; the parentheses do not hurt
 				Do Case
@@ -1853,8 +1891,9 @@ Define Class DynamicFormRenderEngine as Custom
 						lcValue = ' ' + lcValue
 					Case Left(lcValue, 1) $ '.0123456789-' && allows numbers and logicals
 						lcValue = ' (' + lcValue + ')'
-					Case Substr(lcValue, 2, 1)  $ '.0123456789-' && old style numbers and logicals in quotes
-						lcValue = ' (' + Substr(lcValue, 2, Len(lcValue) - 2) + ')'
+					*-- Removed support for this older syntax as of 2014-09-29
+					*Case Substr(lcValue, 2, 1)  $ '.0123456789-' && old style numbers and logicals in quotes
+					*	lcValue = ' (' + Substr(lcValue, 2, Len(lcValue) - 2) + ')'
 					Otherwise
 						lcValue = Substr(lcValue, 2, Len(lcValue) - 2) && Trim off first and last char, which would be some kind of string symbol
 				Endcase
@@ -2060,7 +2099,7 @@ Define Class DynamicFormRenderEngine as Custom
 	*--------------------------------------------------------------------------------------- 
 	Procedure RestoreData
 
-	*-- The original value of each control was saved into This.aBackup[] array so it can be restored
+	*-- The original value of each control was saved into This.aBackup[] array so it nca be restored,
 	*-- if this method is called by the consumer of this class.
 
 	For lnX = 1 to Alen(This.aBackup, 1)
@@ -2505,8 +2544,6 @@ Define Class DF_MemoFieldEditBox as EditBox
 	nEditboxAnchor = 15
 	oRenderEngine = .null. && Will be set by GenerateControl() method in DF Render Engine
 	
-	
-	
 	*--------------------------------------------------------------------------------------- 
 	Procedure DblClick
 		This.EditData()
@@ -2515,9 +2552,18 @@ Define Class DF_MemoFieldEditBox as EditBox
 	*--------------------------------------------------------------------------------------- 
 	Procedure EditData
 
-		Local lcBodyMarkup, loForm, loParentForm, loParentRenderEngine
+		Local lcBodyMarkup, lcDF_Class, loForm, loParentForm, loParentRenderEngine
 
-		loForm = CreateObject(This.cDF_Class)
+		lcDF_Class = This.cDF_Class
+		Do Case
+			Case ! Upper(lcDF_Class) == Upper('DynamicForm')
+
+			Case ThisForm.DeskTop = .t. 
+				lcDF_Class = Thisform.Class
+			Case ThisForm.ShowWindow # 0
+				lcDF_Class = Thisform.Class
+		Endcase
+		loForm = CreateObject(lcDF_Class)
 
 		*-- Theses setting control the visual layout of the pop-up form...
 		loForm.Caption = 'Edit ' + This.cLabelCaption
@@ -2537,7 +2583,7 @@ Define Class DF_MemoFieldEditBox as EditBox
 		lcBodyMarkup = Strtran(lcBodyMarkup, '__ControlSource__', this.ControlSource, 1, 1 ,1)
 		lcBodyMarkup = Strtran(lcBodyMarkup, 'Thisform.oDataObject.', '', 1, 1000 ,1)
 		loForm.cBodyMarkup = lcBodyMarkup
-		loForm.oRenderEngine.lGenerateEditButtonsForMemoFields = .f.
+		loForm.oRenderEngine.lGenerateEditButtonForEditBoxes = .f.
 	
 		*-- Find the parent form so we can center new form in parent form
 		loParentForm = This.Parent
@@ -2545,8 +2591,7 @@ Define Class DF_MemoFieldEditBox as EditBox
 			loParentForm = loParentForm.Parent
 		EndDo
 		
-		loForm.Show(0, loParentForm)
-		
+		loForm.Show(Thisform.WindowType, loParentForm)
 		
 	EndProc
 	
@@ -2558,11 +2603,10 @@ Define Class DF_MemoFieldEditBox as EditBox
 
 Enddefine
 
-   
-   
-  
- 
-        
-   
- 
-   
+Define Class DynamicFormDeskTop As DynamicForm
+	Desktop = .T.
+Enddefine
+
+Define Class DynamicFormShowWindow As DynamicForm
+	ShowWindow = 1
+Enddefine   
