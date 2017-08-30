@@ -25,6 +25,11 @@ laOptions[1] = 'Banner'
 laOptions[2] = 'Placard'
 laOptions[3] = 'Name Tag'
 
+
+
+Cd h:\work\repos\dynamicForm && Adjust path to you local dev environment as needed
+Set Procedure To DynamicForm Additive && Adjust path to you local dev environment as needed
+
 If !Used('Jobs')
 	Use Demos\Jobs In 0
 EndIf
@@ -42,7 +47,7 @@ Set Procedure To DynamicForm additive
 *clear
 Do execute_code_test
 
-Do largedemo1 with .f., ':class => "label" :caption => "Thanks!!" | :class => "DF_HorizontalLine"', '', ':class => "DF_CancelButton"'
+Do largedemo1 with .f., '.class = "label" .caption = "Thanks!!" | .class = "DF_HorizontalLine"', '', '.class = "DF_CancelButton"'
 
 Do passing_a_container_to_the_render_engine_test
 Do attributes_with_numbers_passed_as_strings_test
@@ -53,8 +58,8 @@ Do minheight_and_minwidth_test
 Do binding_errors_test
 Do largedemo1 with .t.
 Do largedemo1 with .f.
-Do largedemo1 with .t., '', '', ':class => "DF_CancelButton"'
-Do largedemo1 with .t., ':class => "DF_CancelButton"', '', ''
+Do largedemo1 with .t., '', '', '.class = "DF_CancelButton"'
+Do largedemo1 with .t., '.class = "DF_CancelButton"', '', ''
 
 
 *--------------------------------------------------------------------------------------- 
@@ -68,7 +73,7 @@ Procedure passing_a_container_to_the_render_engine_test
 	
 	loEngine = CreateObject('DynamicFormRenderEngine')
 
-	lcBodyMarkup = "job_num :enabled => .F. | cust_num | status | job_start |"
+	lcBodyMarkup = "job_num .enabled = .F. | cust_num | status | job_start |"
 	loEngine.cFooterMarkup = ''
 
 	loEngine.cBodyMarkup = lcBodyMarkup 
@@ -120,7 +125,7 @@ Procedure jrn_syntax_test
 	loForm = CreateObject('DynamicForm')
 	lcBodyMarkup = BigFieldList()
 	lcBodyMarkup = Strtran(lcBodyMarkup, ':', '.')
-	lcBodyMarkup = Strtran(lcBodyMarkup, '=>', '=')
+	lcBodyMarkup = Strtran(lcBodyMarkup, '=', '=')
 	loForm.cHeading = gcTestName
 	loForm.oRenderEngine.lLabelsAbove = .t.
 	loForm.oDataObject = loObject && Set the data object that the form fields bind to
@@ -149,13 +154,13 @@ Procedure attributes_with_numbers_passed_as_strings_test
 
 	Text to lcBodyMarkup NoShow
 		
-			:class => 'label' :caption => 'This next textbox should be pushed down and in very far due to margin-top and  margin-left '
-				:width => 500 :height => 100 :wordwrap => .t. |
+			.class = 'label' .caption = 'This next textbox should be pushed down and in very far due to margin-top and  margin-left '
+				.width = 500 .height = 100 .wordwrap = .t. |
 
-			lcTest :left => '10' :margin-left => '200' :top => '70' :margin-top => '200' :margin-bottom => '200' |
+			lcTest .left = 10 .margin-left = 200 .top = 70 .margin-top = 200 .margin-bottom = 200 |
 			
-			:class => 'label' :caption => 'This label should be pushed down due to margin-bottom of previous control'
-				:width => 500 :height => 100 :wordwrapt => .t.
+			.class = 'label' .caption = 'This label should be pushed down due to margin-bottom of previous control'
+				.width = 500 .height = 100 .wordwrap = .t.
 		
 	EndText
 	
@@ -194,12 +199,12 @@ Procedure minheight_and_minwidth_test
 	
 	loForm = CreateObject('DynamicForm')
 	loForm.cHeading = gcTestName
-	lcBodyMarkup = 'Month | llProj :Caption => "Projections?"'
+	lcBodyMarkup = 'Month | llProj .Caption = "Projections?"'
 	
 	Text to lcBodyMarkup Noshow
 
-		:class => 'label' :width => 300 :height => 100 :wordwrap => .t.
-				:caption => 'This test tests the MinWidth and MinHeight for the form, so the form should render much larger than
+		.class = 'label' .width = 300 .height = 100 .wordwrap = .t.
+				.caption = 'This test tests the MinWidth and MinHeight for the form, so the form should render much larger than
 										its normal resize-to-fit-controls behaviour.'
 
 	EndText
@@ -225,7 +230,7 @@ Procedure execute_code_test
 	
 	Text to lcBodyMarkup Noshow
 
-		(MessageBox('Executing some code from markup.')) |
+		(MessageBox('Executing some VFP code from the markup syntax.')) |
 		.cHeading = (gcTestName) |
 		(This.nLastControlBottom = 200) |
 		.class = 'label'
@@ -263,9 +268,9 @@ Procedure binding_errors_test
 	
 	Text to lcBodyMarkup Noshow
 		llNotDefined_1 |
-		llNotDefined_2 :width => 200 |
-		:class => 'label' :width => 300 :height => 100 :wordwrap => .t.
-				:caption => ('This markup attempts to bind to private vars which are not defined. There should be' + 
+		llNotDefined_2 .width = 200 |
+		.class = 'label' .width = 300 .height = 100 .wordwrap = .t.
+				.caption = ('This markup attempts to bind to private vars which are not defined. There should be' + 
 											'two red error boxes on the form.')
 
 	EndText
@@ -340,52 +345,52 @@ Procedure BigFieldList
 
 		Text to lcBodyMarkup NoShow
 
-			id					:enabled => .f.	
-									:fontbold => .t.
-									:label.FontBold => .t. |
+			id					.enabled = .f.	
+									.fontbold = .t.
+									.label.FontBold = .t. |
 			
-			ad_type 		:class => 'combobox'
-									:RowSource => 'laOptions'
-									:RowSourceType => 5 
-									:top => 150|
+			ad_type 		.class = 'combobox'
+									.RowSource = 'laOptions'
+									.RowSourceType = 5 
+									.top = 150|
 
-			bool_3			:caption => 'You can specify BOLD captions.'
-									:FontBold => '.t.'
-									:width => '200' 
-									:margin-left => 50 |
+			bool_3			.caption = 'You can specify BOLD captions.'
+									.FontBold = '.t.'
+									.width = '200' 
+									.margin-left = 50 |
 			
 			first_name	|
-			mid_init		:row-increment => 0 |
-			last_name		:row-increment => 0 |
+			mid_init		.row-increment = 0 |
+			last_name		.row-increment = 0 |
 
-			notes				:class => 'editbox'
-									:width => 400
-									:height => 80
-									:anchor => 10
-									:margin-left => 1
-									:margin-top => 1
-									:margin-bottom => 1 |
+			notes				.class = 'editbox'
+									.width = 400
+									.height = 80
+									.anchor = 10
+									.margin-left = 1
+									.margin-top = 1
+									.margin-bottom = 1 |
 			
-			lnPrice			:label.caption => 'List Price'
-									:label.alignment => 1	|
+			lnPrice			.label.caption = 'List Price'
+									.label.alignment = 1	|
 									
-			weight			:row-increment  => 0
-									:label.alignment => 1 |
+			weight			.row-increment  = 0
+									.label.alignment = 1 |
 			
-			lnOption		:class => 'optiongroup'
-									:caption => 'Color options:'
-									:buttoncount => 2
-									:width => 200
-									:height => 60
-									:option1.caption => 'Red with orange stripes'
-									:option1.autosize => .t.
-									:option2.caption => 'Purple with black dots'
-									:option2.autosize => .t. |
+			lnOption		.class = 'optiongroup'
+									.caption = 'Color options.'
+									.buttoncount = 2
+									.width = 200
+									.height = 60
+									.option1.caption = 'Red with orange stripes'
+									.option1.autosize = .t.
+									.option2.caption = 'Purple with black dots'
+									.option2.autosize = .t. |
 
-			:class => 'label' :caption => 'Thank you for trying DynamicForm.'
-											  :autosize => .t.
-												:render-if => (Day(Date()) > 0)
-												:column => 1
+			.class = 'label' .caption = 'Thank you for trying DynamicForm.'
+											  .autosize = .t.
+												.render-if = (Day(Date()) > 0)
+												.column = 1
 
 		EndText
 

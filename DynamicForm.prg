@@ -1,5 +1,5 @@
 *=======================================================================================================
-* Dynamic Form - 1.9.0 Production release - August 27, 2017 - 20170827
+* Dynamic Form - 1.9.1
 *---------------------------------------------------------------------------------------
 * By: Matt Slay 
 *-------------------------------------------------------------------------------------------------------
@@ -45,21 +45,24 @@
 *--
 *-- Version History
 *--
+*-- 1.9.1 2017-08-30 Fixed spelling, capitalization, formatting (no functional changes).
 *-- 1.9.0 Production release - August 27, 2017 - 20170827 (Migrated from VFPx/CodePlex to GitHub)
-*-- 1.8.2 Beta - September 29, 2014 - 20140929
-*-- 1.7.0 Alpha - October 31, 2013 - 20131031
-*-- 2012-10-18 = Alpha 1.5.0 released.
-*-- 2012-10-26 – Alpha 1.4.1 released.
-*-- 2012-10-23 – Alpha 1.4.0 released.
-*-- 2012-10-08 – Alpha 1.3.0 released.
-*-- 2012-09-25 – Alpha 1.2.0 released.
-*-- 2012-09-18 – Alpha 1.0.0 released.
-*-- 2012-09-04 – Public alpha release 0.9.0 released on VFPx.
-*-- 2012-08-31 – Dynamic Forms accepted as an official VFPx Project.
-*-- 2012-08-24 – Project proposal submitted to VFPx admins.
-*-- 2012-05-08 – Initial concept class created and the first ever Dynamic Form was generated from a few lines of code.
+*-- 1.8.2 Beta - September 29, 2014 - 2014-09-29
+*-- 1.7.0 Alpha - October 31, 2013 - 2013-10-31
+*-- 2012-10-18 Alpha 1.5.0 released.
+*-- 2012-10-26 Alpha 1.4.1 released.
+*-- 2012-10-23 Alpha 1.4.0 released.
+*-- 2012-10-08 Alpha 1.3.0 released.
+*-- 2012-09-25 Alpha 1.2.0 released.
+*-- 2012-09-18 Alpha 1.0.0 released.
+*-- 2012-09-04 Public alpha release 0.9.0 released on VFPx.
+*-- 2012-08-31 Dynamic Forms accepted as an official VFPx Project.
+*-- 2012-08-24 Project proposal submitted to VFPx admins.
+*-- 2012-05-08 Initial concept class created and the first ever Dynamic Form was generated from a few lines of code.
 *--
 *---------------------------------------------------------------------------------------
+
+*-- Example usage:
 
 Private lnPrice, laOptions[1], lnOption
 Private loForm as 'DynamicForm'
@@ -215,14 +218,19 @@ EndIf
 *-- After the preceding Save/Cancel processing, we can now Release the loForm object.
 
 
+
+
+*-- Class definitions follow:
+
+
 *======================================================================================= 
 #DEFINE CR Chr(13)
 #DEFINE CRCR Chr(13)
 
 Define Class DynamicForm as Form
 
-  	cVersion = '1.9.0'
-  	cVersionFull = '1.9.0 Production Release - August 27, 2017'
+  	cVersion = '1.9.1'
+  	cVersionFull = '1.9.1 Production Release - August 30, 2017'
   	Caption = ''
 	*-- Binding form fields to a cursor/alias...
 	cAlias = ''                 && The cursor/alias that your form fields bind to. Make sure this alias is opened and positioned to the correct record.
@@ -273,54 +281,61 @@ Define Class DynamicForm as Form
 		margin_bottom = 0
 	
 	*---------------------------------------------------------------------------------------
-	Procedure cSaveButtonCaption_Assign
-		Lparameters tcCaption
+	Procedure cSaveButtonCaption_Assign()tcCaption
+
 		This.oRenderEngine.cSaveButtonCaption = tcCaption
+
 	Endproc
 	
 	*---------------------------------------------------------------------------------------
-	Procedure cCancelButtonCaption_Assign
-		Lparameters tcCaption
+	Procedure cCancelButtonCaption_Assign(tcCaption)
+
 		This.oRenderEngine.cCancelButtonCaption = tcCaption
+
 	Endproc
 	
 	*--------------------------------------------------------------------------------------- 
-	Procedure cHeading_assign
-		Lparameters tcCaption
+	Procedure cHeading_assign(tcCaption)
+
 		This.oRenderEngine.cHeading = tcCaption
+
 	Endproc
 	
 	*--------------------------------------------------------------------------------------- 
-	Procedure nHeadingFontSize_assign
-		Lparameters tnFontSize
+	Procedure nHeadingFontSize_assign(tnFontSize)
+
 		This.oRenderEngine.nHeadingFontSize = tnFontSize
+
 	Endproc
 	
 	*--------------------------------------------------------------------------------------- 
-	Procedure cHeaderMarkup_assign
-		Lparameters tcMarkup
+	Procedure cHeaderMarkup_assign(tcMarkup)
+
 		This.oRenderEngine.cHeaderMarkup = tcMarkup
+
 	EndProc
 	
 	*--------------------------------------------------------------------------------------- 
-	Procedure cBodyMarkup_assign
-		Lparameters tcMarkup
+	Procedure cBodyMarkup_assign(tcMarkup)
 		
 		This.cBodyMarkup = tcMarkup
 		This.oRenderEngine.cBodyMarkup = tcMarkup
+
 	Endproc
 	
 	*--------------------------------------------------------------------------------------- 
-	Procedure cFooterMarkup_assign
-		Lparameters tcMarkup
+	Procedure cFooterMarkup_assign(tcMarkup)
+
 		This.oRenderEngine.cFooterMarkup = tcMarkup
+
 	EndProc
 
-	
 	*--------------------------------------------------------------------------------------- 
-	Procedure Init
+	Procedure Init()
+
 		This.cHandle = 'DF_' + Sys(2015) && Used to keep a ref to modeless forms alive
 		This.oRenderEngine = CreateObject('DynamicFormRenderEngine')
+
 	Endproc
 	
 	*--------------------------------------------------------------------------------------- 
@@ -331,15 +346,17 @@ Define Class DynamicForm as Form
 	
 	*---------------------------------------------------------------------------------------
 	Procedure Activate
+
 		This.Refresh()
+
 	Endproc
 	
  	*--------------------------------------------------------------------------------------- 
 	Procedure Destroy
 	
-		  If Vartype(This.oRenderEngine) = 'O'
-		  	This.oRenderEngine.Destroy() && This will force objects on RE to get released
-		  EndIf
+		If Vartype(This.oRenderEngine) = 'O'
+			This.oRenderEngine.Destroy() && This will force objects on RE to get released
+		EndIf
  		
 		This.oRenderEngine = .null.
 		This.oBusinessObject = .null.
@@ -349,7 +366,7 @@ Define Class DynamicForm as Form
 
 		RemoveProperty(_screen, This.cHandle)
 		 
-		If this.lClearEventsOnClose 
+		If This.lClearEventsOnClose 
 			Clear Events
 		Endif
 
@@ -366,9 +383,7 @@ Define Class DynamicForm as Form
 	EndProc
 
 	*--------------------------------------------------------------------------------------- 
-	Procedure Show
-	
-		Lparameters tnStyle, toHostForm  
+	Procedure Show(tnStyle, toHostForm  )
 
 		*-- Params:
 		*-- tnStyle. 1 = Modal (Default), 0 = Modeless
@@ -449,7 +464,7 @@ Define Class DynamicForm as Form
 	
 		DoDefault()
 		
-		If this.lClearEventsOnClose 
+		If This.lClearEventsOnClose 
 			Clear Events
 		Endif
 		
@@ -457,9 +472,7 @@ Define Class DynamicForm as Form
 	
 	
 	*--------------------------------------------------------------------------------------- 
-	Procedure Render
-
-		Lparameters tcBodyMarkup
+	Procedure Render(tcBodyMarkup)
 
 		Local lcRenderSizeMessage, llReturn, lnAnchor, lnRenderHeight, lnRenderWidth
 
@@ -552,10 +565,10 @@ Define Class DynamicForm as Form
 
 	EndProc
 	
-	*--------------------------------------------------------------------------------------- 
-	Procedure BindBusinessAndDataObjects
-		Lparameters toBusinessObject, toDataObject
+		*--------------------------------------------------------------------------------------- 
 		*-- This method allows you to pass in toBusinessObject and toDataObject all at once.
+		Procedure BindBusinessAndDataObjects(toBusinessObject, toDataObject)
+
 		
 		This.oBusinessObject = Evl(toBusinessObject, .null.)
 		This.oDataObject = Evl(toDataObject, .null.)
@@ -572,8 +585,8 @@ Define Class DynamicFormRenderEngine as Custom
 	*-- See website for complete documentation.
 	*-- https://github.com/mattslay/DynamicForms
 	
-  	cVersion = '1.9.0'
-  	cVersionFull = '1.9.0 Production Release - August 27, 2017'
+  	cVersion = '1.9.1'
+  	cVersionFull = '1.9.1 Production Release - August 30, 2017'
 
 	cAlias = '' 		&& The name of a cursor or alias to which the cMarkup controls are bound
 
@@ -622,7 +635,7 @@ Define Class DynamicFormRenderEngine as Custom
 	lAutoAdjustVerticalPositionAndHeight = .f.	&& Forces the .Top and .Height of each control to 'snap'? to a grid system based on increments on
 													&& nControlHeight and nVerticalSpacing. The helps keeps control vertically aligned when form spans two
 													&& columns or more. When enabling this feature, any .Top and .Height values specified in attributes may
-													&& be adjusted to “snap” to the grid system at its incremental points.
+													&& be adjusted to ï¿½snapï¿½ to the grid system at its incremental points.
 	lResizeContainer = .f.	&&Indicates if engine should resize (enlarge) oContainer to fit controls as they are added.
 	lGenerateEditButtonForEditBoxes = .t.	&& If the field is form a cursor or table and it is a mem data type
 											&& DF can render a small command button beside the editbox which can be used
@@ -746,12 +759,11 @@ Define Class DynamicFormRenderEngine as Custom
 	Endproc
 	
 	*--------------------------------------------------------------------------------------- 
-	Procedure Render
-		Lparameters toContainer
+	Procedure Render(toContainer)
 
 		Local lcCode, lcControlSource, loField
 		
-		*-- New in ver 1.6.0 - Open table if cAlias points to something not already open
+		*-- Open table if cAlias points to something not already open
 		If !Empty(This.cAlias) and !Used(JustStem(This.cAlias))
 			llReturn = This.OpenTable()
 			If !lLReturn
@@ -761,7 +773,7 @@ Define Class DynamicFormRenderEngine as Custom
 		
 		This.cAlias = JustStem(This.cAlias)
 		
-		This.oContainer = Iif(Vartype(toContainer) = 'O', toContainer, this.oContainer)
+		This.oContainer = Iif(Vartype(toContainer) = 'O', toContainer, This.oContainer)
 		If Vartype(This.oContainer) = 'U'
 			MessageBox('Must pass container object into Render() method, or set .oContainer property.', 0, 'Warning.')
 			Return -1
@@ -786,13 +798,13 @@ Define Class DynamicFormRenderEngine as Custom
 		This.nHorizontalSpacing = Nvl(This.nHorizontalSpacing, 15) && Only used when rendering on the same row with .row=increment = '0'
 
 		If This.lAutoAdjustVerticalPositionAndHeight = .t.
-			If this.lLabelsAbove = .t.
+			If This.lLabelsAbove = .t.
 				This.nVerticalSpacing = Nvl(This.nVerticalSpacing, 50) &&	Value is distance from the .Top of the last control to the the .Top of the next control
 			Else
 			This.nVerticalSpacing = Nvl(This.nVerticalSpacing, 30) 
 			Endif
 		Else
-			If this.lLabelsAbove = .t.
+			If This.lLabelsAbove = .t.
 				This.nVerticalSpacing = Nvl(This.nVerticalSpacing, 30) &&	Value is distance from the BOTTOM of the last control to the the .Top of the next control
 			Else
 				This.nVerticalSpacing = Nvl(This.nVerticalSpacing, 15) 
@@ -813,11 +825,11 @@ Define Class DynamicFormRenderEngine as Custom
 			lcControlSource = loField.ControlSource
 				If Left(lcControlSource, 1) + Right(lcControlSource, 1)= '()' && If ControlSource element is wrapped in (), then it's to be executed as a VFP code block, Execute it!!
 					lcCode = Substr(lcControlSource, 2, Len(lcControlSource) - 2)
-				Try
-					&lcCode
-				Catch
-					This.AddError('Error executing code block.', loField)
-				EndTry
+					Try
+						&lcCode
+					Catch
+						This.AddError('Error executing code block.', loField)
+					EndTry
 				Else
 					If Empty(lcControlSource) or !(' ' + Upper(lcControlSource) + ' ' $ Upper(This.cSkipFields))
 						This.GenerateControl(loField)
@@ -836,27 +848,27 @@ Define Class DynamicFormRenderEngine as Custom
 	EndProc
 	
 	*---------------------------------------------------------------------------------------
+	*-- If cAlias is specified, but not open, then attempt to open it...
 	Procedure OpenTable
 
-		*-- Ver 1.6.0: If cAlias is specified, but not open, then attempt to open it...
 		Local lcAlias, loException
 
 		Try
 			Use (This.cAlias) Again In 0
 			This.cAlias = JustStem(This.cAlias) && Now that it's open, trim off any path and extension
 		Catch to loException
-			this.oErrors.Add(loException)
+			This.oErrors.Add(loException)
 			Return .F.
 		Endtry
 
 	Endproc
 	
 	*--------------------------------------------------------------------------------------- 
+	*-- This method combines the Header, Body, and Footer markup together, and mixes in a
+	*-- little extra markup between each section that will help the rendering process keep
+	*-- track of where it is working.
 	Procedure BuildMarkup
 
-		*-- This method combines the Header, Body, and Footer markup together, and mixes in a
-		*-- little extra markup between each section that will help the rendering process keep
-		*-- track of where it is working.
 		
 		This.cHeaderMarkup = Nvl(This.cHeaderMarkup, This.GetHeaderMarkup())
 		*-- See PreProcessBodyMarkup() method to see how it is preparied for use here
@@ -886,8 +898,8 @@ Define Class DynamicFormRenderEngine as Custom
 	
 	
 	*--------------------------------------------------------------------------------------- 
-	Procedure PropertyMatch
-		Lparameters tcField, tcList
+	Procedure PropertyMatch(tcField, tcList)
+	
 		Local llSkip, x
 
 		For x = 1 to GetWordCount(tcList, ', ')
@@ -901,9 +913,7 @@ Define Class DynamicFormRenderEngine as Custom
 	EndProc
 	
 	*--------------------------------------------------------------------------------------- 
-	Procedure AddControl
-		
-		Lparameters tcClass, tcClassLib, tcControlSourceField, tcDataType
+	Procedure AddControl(tcClass, tcClassLib, tcControlSourceField, tcDataType)
 		
 		Local lcBaseClass, lcClass, lcClassLib, lcControlName, lcPrefix, llNewObject, loControl
 
@@ -1042,8 +1052,7 @@ Define Class DynamicFormRenderEngine as Custom
 	Endproc
 
 	*--------------------------------------------------------------------------------------- 
-	Procedure GenerateControl
-		Lparameters toField
+	Procedure GenerateControl(toField)
 			
 		Local laProperties[1], lcAttribute, lcBackupType, lcClassLib, lcControlClass, lcControlSource
 		Local lcDataSource, lcDataType, lcErrorMessage, llSuccess, lnControlMultiplier, lnX, loControl
@@ -1231,9 +1240,7 @@ Define Class DynamicFormRenderEngine as Custom
 	
 	
 	*--------------------------------------------------------------------------------------- 
-	Procedure IsMemoField
-	
-		Lparameters tcCursor, tcField
+	Procedure IsMemoField(tcCursor, tcField)
 		
 		Local laFieldsFromAlias[1], llIsMemoField, lnFieldFromArray
 		
@@ -1257,11 +1264,9 @@ Define Class DynamicFormRenderEngine as Custom
 	Endproc
 
 	*--------------------------------------------------------------------------------------- 
-	Procedure StyleControl
-	
-		Lparameters toControl, toField
+	*-- This procedure will set the top, left, width, height, and apply the attributes to the control, 
+	Procedure StyleControl(toControl, toField)
 
-		*-- This procedure will set the top, left, width, height, and apply the attributes to the control, 
 		Local laProperties[1], lcAttribute, lnColumnTest, lnControlMultiplier, lnX, loLabel
 
 		*-- Format the control and update a few class properties to manage flow
@@ -1343,10 +1348,9 @@ Define Class DynamicFormRenderEngine as Custom
 	EndProc
 	
 	*---------------------------------------------------------------------------------------
-	Procedure ApplyAttributes
-		Lparameters toControl, toField
+	*-- Apply any attributes that were set by the user in cMarkup for this control
+	Procedure ApplyAttributes(toControl, toField)
 		
-		*-- Apply any attributes that were set by the user in cMarkup for this control
 
 		Local laProperties[1], lcAttribute, lcObjectName, lcObjectProperty, llApplied, llValue, lnAnchor
 		Local lnX, lxValue
@@ -1427,8 +1431,7 @@ Define Class DynamicFormRenderEngine as Custom
 	
 	
 	*--------------------------------------------------------------------------------------- 
-	Procedure StyleHorizontalLine
-		Lparameters toControl, toField
+	Procedure StyleHorizontalLine(toControl, toField)
 
 		Local lnAnchor
 
@@ -1451,8 +1454,7 @@ Define Class DynamicFormRenderEngine as Custom
 	Endproc
 	
 	*---------------------------------------------------------------------------------------
-	Procedure StyleCheckbox
-		Lparameters toControl, toField
+	Procedure StyleCheckbox(toControl, toField)
 		
 		Local lnAnchor
 
@@ -1469,8 +1471,7 @@ Define Class DynamicFormRenderEngine as Custom
 	Endproc
 	
 	*---------------------------------------------------------------------------------------
-	Procedure StyleCommandButton
-		Lparameters toControl, toField
+	Procedure StyleCommandButton(toControl, toField)
 		
 		Local lnAnchor
 
@@ -1484,13 +1485,12 @@ Define Class DynamicFormRenderEngine as Custom
 	
 
 	*--------------------------------------------------------------------------------------- 
-	Procedure AssignTop
-		Lparameters toControl, toField, tnSpacing
+	Procedure AssignTop(toControl, toField, tnSpacing)
 		
 		Local luValue
 		
 		*-- For controls like commandbutton, line, checkbox, picture, etc, we only need a small amount of vertical space between this control and the previous control
-		If !PemStatus(toControl, 'ControlSource', 5) or (Lower(toControl.baseclass) = 'checkbox' and this.lLabelsAbove)
+		If !PemStatus(toControl, 'ControlSource', 5) or (Lower(toControl.baseclass) = 'checkbox' and This.lLabelsAbove)
 			lnSpacing = This.nVerticalSpacingNonControlSourceControls 
 		Else
 			lnSpacing = This.nVerticalSpacing
@@ -1544,9 +1544,7 @@ Define Class DynamicFormRenderEngine as Custom
 	EndProc
 	
 	*---------------------------------------------------------------------------------------
-	Procedure AssignLeft
-	
-		Lparameters toControl, toField
+	Procedure AssignLeft(toControl, toField)
 
 		*-- First, assign a default Left value
 		toControl.Left = This.nControlLeft + This.GetColumnLeft()
@@ -1582,12 +1580,11 @@ Define Class DynamicFormRenderEngine as Custom
 	Endproc
 	
 	*--------------------------------------------------------------------------------------- 
-	Procedure AssignWidth
-		Lparameters toControl, toField
+	*-- This method assigns a default Width value, from Render Engine logic and properties, but,
+	*-- this value may be overridden by the user in their markup syntax. If so, it will applied in 
+	*-- the ApplyAfftributes method() call which occurs later.
+	Procedure AssignWidth(toControl, toField)
 
-		*-- This method assigns a default Width value, from Render Engine logic and properties, but,
-		*-- this value may be overridden by the user in their markup syntax. If so, it will applied in 
-		*-- the ApplyAfftributes method() call which occurs later.
 
 		Local lcNothing, lnAnchor
 
@@ -1620,14 +1617,13 @@ Define Class DynamicFormRenderEngine as Custom
 	Endproc
 
 	*--------------------------------------------------------------------------------------- 
-	Procedure AssignHeight
-		Lparameters toControl, toField
+	*-- This method assigns a default Height value, from Render Engine logic and properties, but,
+	*-- this value may be overridden by the user in their markup syntax. If so, it will applied in 
+	*-- the ApplyAfftributes method() call which occurs later.
+	Procedure AssignHeight(toControl, toField)
 
 		Local lnControHeightMultiplier
 
-		*-- This method assigns a default Height value, from Render Engine logic and properties, but,
-		*-- this value may be overridden by the user in their markup syntax. If so, it will applied in 
-		*-- the ApplyAfftributes method() call which occurs later.
 
 		With toControl
 			*-- Slight override to the height if the user passed in a height attribute...
@@ -1670,10 +1666,11 @@ Define Class DynamicFormRenderEngine as Custom
 	
 	
 	*--------------------------------------------------------------------------------------- 
-	Procedure ManageColumn
-		Lparameters toControl, toField
+	*-- Manage which column we are working in ----------------
+	Procedure ManageColumn(toControl, toField)
 
-		*-- Manage which column we are working in ----------------
+		Local lnMarginBottom, lnMarginTop, lnX
+
 		If PemStatus(toField, 'column', 5)
 			Try
 				If This.GetValue(toField.column) > This.nColumnCount
@@ -1685,8 +1682,10 @@ Define Class DynamicFormRenderEngine as Custom
 				This.AddError('Error in column attribute value.', toField)
 			Endtry	
 		Else
+			lnMarginTop = This.GetValue(toField.margin_top)
+			lnMarginBottom = This.GetValue(toField.margin_bottom)
 			If This.GetValue(toField.row_increment) > 0 and ;
-				(This.nLastControlBottom + This.nVerticalSpacing + toControl.Height + This.GetValue(toField.margin_top) + This.GetValue(toField.margin_bottom)) > This.nColumnHeight
+				(This.nLastControlBottom + This.nVerticalSpacing + toControl.Height + lnMarginTop + lnMarginBottom) > This.nColumnHeight
 				This.nColumnCount = This.nColumnCount + 1
 				This.nFieldsInCurrentColumn = 1
 				*-- This.nNextControlTop = This.nFirstControlTop
@@ -1705,9 +1704,7 @@ Define Class DynamicFormRenderEngine as Custom
 	
 
 	*--------------------------------------------------------------------------------------- 
-	Procedure ResizeContainer
-	
-		Lparameters toControl
+	Procedure ResizeContainer(toControl)
 
 		Local laControls[1], lnX, loControl, loFixList
 		
@@ -1746,8 +1743,7 @@ Define Class DynamicFormRenderEngine as Custom
 	
 	
 	*--------------------------------------------------------------------------------------- 
-	Procedure GenerateLabel
-		Lparameters toControl, toField
+	Procedure GenerateLabel(toControl, toField)
 
 		Local laProperties[1], lcAttribute, lcibute, lnX, loLabel
 
@@ -1807,8 +1803,7 @@ Define Class DynamicFormRenderEngine as Custom
 	
 	
 	*--------------------------------------------------------------------------------------- 
-	Procedure GetLabelCaption
-		Lparameters toControl, toField
+	Procedure GetLabelCaption(toControl, toField)
 
 		Local lcCaption
 
@@ -1838,12 +1833,10 @@ Define Class DynamicFormRenderEngine as Custom
 	
 
 	*--------------------------------------------------------------------------------------- 
-	Procedure ParseField
-	
-		Lparameters tcParam
+	*-- This method parses the field definition string passed in (i.e one of the items from cMarkup)
+	*-- to return an oField object containing properties of each attribute in the item
+	Procedure ParseField(tcParam)
 
-		*-- This method parses the field definition string passed in (i.e one of the items from cMarkup)
-		*-- to return an oField object containing properties of each attribute in the item
 		Local lnX, lcAttribute, lcValue, lcControlSource
 		Local loMatch, loMatches, loField, laPositions[1], llHasCodeLine
 		Local loRegEx as 'VBScript.RegExp'
@@ -1966,8 +1959,7 @@ Define Class DynamicFormRenderEngine as Custom
 	EndProc
 	
 	*======================================================================================= 
-	Procedure EscapeForRegex
-		Lparameters tcString
+	Procedure EscapeForRegex(tcString)
 
 		Local lcString
 
@@ -1997,33 +1989,31 @@ Define Class DynamicFormRenderEngine as Custom
 	Endproc
 	
 	*--------------------------------------------------------------------------------------- 
-	Procedure TrimIt
-	
-		Lparameters tcString
+	Procedure TrimIt(tcString)
 		
 		Return Alltrim(tcString, 1, ' ', Chr(9))
 
 	Endproc	
 	
 	*--------------------------------------------------------------------------------------- 
-	Procedure GetValue
-		Lparameters tuExpression
+	Procedure GetValue(tuExpression)
 	
 		If Vartype(tuExpression) = 'C' and Left(tuExpression, 2) = ' ('
 			Return Evaluate(tuExpression)
 		Else
 			Return tuExpression
 		Endif
+
 	EndProc
 	
 	
 	*--------------------------------------------------------------------------------------- 
+	*-- This method iterates over the fields in just the cBodyMarkup, and calls off the ParseField()
+	*-- method to do a little trick before the real rendering happens... The purpose of this is that we want
+	*-- to process any field definitions from the cBodyMarkup which are attempting to set RenderEngine class
+	*-- properties by using identically named attributes. 
 	Procedure PreProcessBodyMarkup
 	
-		*-- This method iterates over the fields in just the cBodyMarkup, and calls off the ParseField()
-		*-- method to do a little trick before the real rendering happens... The purpose of this is that we want
-		*-- to process any field definitions from the cBodyMarkup which are attempting to set RenderEngine class
-		*-- properties by using identically named attributes. 
 
 		Local lcField, lcMarkup, lnCount, lnLastPos, lnPos, lnX, loField
 
@@ -2054,10 +2044,9 @@ Define Class DynamicFormRenderEngine as Custom
   
 
 	*--------------------------------------------------------------------------------------- 
+	*-- This method parses the cMarkup items to convert each item into an object in This.oFieldList collection.
+	*-- To omit any property from processing, include it in the cSkipFields property.
 	Procedure BuildFieldList
-	
-		*-- This method parses the cMarkup items to convert each item into an object in This.oFieldList collection.
-		*-- To omit any property from processing, include it in the cSkipFields property.
 
 		Local lcField, lcMarkup, lnCount, lnLastPos, lnPos, lnX, loField
 
@@ -2083,11 +2072,8 @@ Define Class DynamicFormRenderEngine as Custom
 	EndProc
 	
 	*--------------------------------------------------------------------------------------- 
-	Procedure CopyObject
-
-		Lparameters toObject
-
-		*-- From. http.//www.berezniker.com/content/pages/visual-foxpro/shallow-copy-object
+	*-- From. http.//www.berezniker.com/content/pages/visual-foxpro/shallow-copy-object
+	Procedure CopyObject(toObject)
 
 		Local  laProps[1], lnI, loNewObject, lcPropName
 
@@ -2112,10 +2098,10 @@ Define Class DynamicFormRenderEngine as Custom
 	Endproc
 	
 	*--------------------------------------------------------------------------------------- 
-	Procedure RestoreData
-
 	*-- The original value of each control was saved into This.aBackup[] array so it nca be restored,
 	*-- if this method is called by the consumer of this class.
+	Procedure RestoreData
+
 
 	For lnX = 1 to Alen(This.aBackup, 1)
 		
@@ -2138,12 +2124,10 @@ Define Class DynamicFormRenderEngine as Custom
 	EndProc
 	
 	*---------------------------------------------------------------------------------------	
-	Procedure BackupData
-	
-		Lparameters tcControlSource, tuValue, tcType
+	*-- Each time a control is added to the container, we will make a copy of the original value
+	*-- so the value can be restored later if the consumer of this class calls RestoreData(). 
+	Procedure BackupData(tcControlSource, tuValue, tcType)
 		
-		*-- Each time a control is added to the container, we will make a copy of the original value
-		*-- so the value can be restored later if the consumer of this class calls RestoreData(). 
 		
 		Dimension This.aBackup[This.nControlCount, 3]
 		
@@ -2154,9 +2138,7 @@ Define Class DynamicFormRenderEngine as Custom
 	Endproc
 
 	*---------------------------------------------------------------------------------------
-	Procedure AddError
-	
-		Lparameters tcMessage, toField, toException
+	Procedure AddError(tcMessage, toField, toException)
 		
 		This.nErrorCount = This.nErrorCount + 1
 		
@@ -2190,17 +2172,17 @@ Define Class DynamicFormRenderEngine as Custom
 		Text to lcMarkup NoShow TextMerge
 
 			<<lc1>>class <<lc2>> 'label' 
-			<<lc1>>render-if 	<<lc2>> (!Empty(this.cHeading))
-			<<lc1>>caption 	<<lc2>> (this.cHeading)
+			<<lc1>>render-if 	<<lc2>> (!Empty(This.cHeading))
+			<<lc1>>caption 	<<lc2>> (This.cHeading)
 			<<lc1>>name 		<<lc2>> 'lblHeading'
 			<<lc1>>top 		<<lc2>> 10
 			<<lc1>>left 		<<lc2>> 10
-			<<lc1>>fontsize 	<<lc2>> (this.nHeadingFontSize)
+			<<lc1>>fontsize 	<<lc2>> (This.nHeadingFontSize)
 			<<lc1>>fontbold 	<<lc2>> .f.
 			<<lc1>>autosize 	<<lc2>> .t.  |
 			
 			<<lc1>>class <<lc2>> 'DF_HorizontalLine'
-			<<lc1>>render-if <<lc2>> (!Empty(this.cHeading))
+			<<lc1>>render-if <<lc2>> (!Empty(This.cHeading))
 			<<lc1>>margin-top <<lc2>> -10
 			<<lc1>>left <<lc2>> 10
 			
@@ -2211,17 +2193,17 @@ Define Class DynamicFormRenderEngine as Custom
 	EndProc
 	
 	*--------------------------------------------------------------------------------------- 
-	Procedure GetBodyMarkupForAll
-	
 	*-- Loop through all properties on oDataObject and all fields on cALias to build BodyMarkup for all fields,
 	*-- skipping any fields that are listed in cSksipFields
+	Procedure GetBodyMarkupForAll
+	
 	
 		Local laProperties[1], lcBodyMarkup, lcPropertyFromObject, lnX
 
 		lcBodyMarkup = ''
 
 		If !IsNull(This.oDataObject)
-			AMembers(laProperties, this.oDataObject)
+			AMembers(laProperties, This.oDataObject)
 			For lnX = 1 to ALen(laProperties)
 				lcPropertyFromObject = laProperties[lnX]
 				If !Upper(lcPropertyFromObject) $ Upper(This.cSkipFields)
@@ -2231,7 +2213,7 @@ Define Class DynamicFormRenderEngine as Custom
 		Endif
 
 		If !Empty(This.cAlias)
-			AFields(laProperties, this.cAlias)
+			AFields(laProperties, This.cAlias)
 			For lnX = 1 to ALen(laProperties) Step 18
 				lcPropertyFromObject = laProperties[lnX]
 				If !Upper(lcPropertyFromObject) $ Upper(This.cSkipFields)
@@ -2263,13 +2245,13 @@ Define Class DynamicFormRenderEngine as Custom
 			<<lc1>>class <<lc2>> 'DF_SaveButton'
 			<<lc1>>name <<lc2>> 'cmdSave'
 			<<lc1>>width <<lc2>> 80
-			<<lc1>>left <<lc2>> (this.oContainer.Width - 200)
+			<<lc1>>left <<lc2>> (This.oContainer.Width - 200)
 			<<lc1>>anchor <<lc2>> 12 |
 
 			<<lc1>>class <<lc2>> 'DF_CancelButton'
 			<<lc1>>name <<lc2>> 'cmdCancel'
 			<<lc1>>width <<lc2>> 80
-			<<lc1>>left <<lc2>> (this.oContainer.Width - 100)
+			<<lc1>>left <<lc2>> (This.oContainer.Width - 100)
 			<<lc1>>row-increment <<lc2>> 0
 			<<lc1>>anchor <<lc2>> 12 |
 			
@@ -2291,10 +2273,10 @@ Define Class DynamicFormRenderEngine as Custom
 		Text to lcMarkup NoShow TextMerge
 
 			__ControlSource__ 
-				<<lc1>>class <<lc2>> '<<this.cPopupFormEditboxClass>>'
+				<<lc1>>class <<lc2>> '<<This.cPopupFormEditboxClass>>'
 				<<lc1>>left <<lc2>> 10
-				<<lc1>>width <<lc2>> <<this.nPopupFormEditboxWidth>>
-				<<lc1>>height <<lc2>> <<this.nPopupFormEditboxHeight>>
+				<<lc1>>width <<lc2>> <<This.nPopupFormEditboxWidth>>
+				<<lc1>>height <<lc2>> <<This.nPopupFormEditboxHeight>>
 				<<lc1>>anchor <<lc2>> 15
 				<<lc1>>label.caption <<lc2>> '' |
 		EndText
@@ -2374,13 +2356,13 @@ Define Class DF_ErrorContainer as Container
 		Name = 'lblError', ;
 		Forecolor = Rgb(255,0,0), ;
 		Caption = ''
+	
 	*--------------------------------------------------------------------------------------- 
-
-	Procedure cErrorMsg_Assign
-		Lparameters tcMessage
+	Procedure cErrorMsg_Assign(tcMessage)
 		
 		This.lblError.Caption = tcMessage
 		This.Refresh()
+
 	Endproc
 	
 Enddefine
@@ -2390,6 +2372,7 @@ Define Class DF_ResultButton as CommandButton
 
 	*---------------------------------------------------------------------------------------
 	Procedure Click
+
 		AddProperty(Thisform, 'cReturn', This.Tag)
 		
 		If thisform.WindowType = 0 && If Modeless, Release the form. 
@@ -2402,16 +2385,18 @@ Define Class DF_ResultButton as CommandButton
 	
 	*--------------------------------------------------------------------------------------- 
 	Procedure Init
+
 		This.Tag = This.Caption
+
 	Endproc
 	
 	
 	*---------------------------------------------------------------------------------------
-	Procedure Caption_Assign
-		Lparameters tcCaption
+	Procedure Caption_Assign(tcCaption)
 		
 		This.Caption = tcCaption
 		This.Tag = Strtran(tcCaption, '\<', '')
+
 	Endproc
 	
 
@@ -2427,9 +2412,11 @@ Define Class DF_SaveButton as DF_ResultButton
 
 	*--------------------------------------------------------------------------------------- 
 	Procedure Init
+
 		AddProperty(Thisform, 'lSaveClicked', .f.)
 		This.Caption = Nvl(This.parent.oRenderEngine.cSaveButtonCaption, This.Caption)
 		DoDefault()
+
 	Endproc
 
 	*--------------------------------------------------------------------------------------- 
@@ -2484,9 +2471,12 @@ Define Class DF_EditButton as CommandButton
 	Width = 20
 	Height = 20
 
+	*---------------------------------------------------------------------------------------
 	Procedure Click
+
 		This.oEditBox.SetFocus()
 		This.oEditBox.EditData()
+
 	Endproc
 
 Enddefine
@@ -2502,9 +2492,11 @@ Define Class DF_CancelButton as DF_ResultButton
 
 	*--------------------------------------------------------------------------------------- 
 	Procedure Init
+
 		This.Caption = Nvl(This.parent.oRenderEngine.cCancelButtonCaption, This.Caption)
 		AddProperty(Thisform, 'lCancelClicked', .f.)
 		DoDefault()
+
 	Endproc
 
 	*--------------------------------------------------------------------------------------- 
@@ -2561,7 +2553,9 @@ Define Class DF_MemoFieldEditBox as EditBox
 	
 	*--------------------------------------------------------------------------------------- 
 	Procedure DblClick
+
 		This.EditData()
+
 	Endproc
 
 	*--------------------------------------------------------------------------------------- 
@@ -2595,7 +2589,7 @@ Define Class DF_MemoFieldEditBox as EditBox
 		EndWith
 		
 		lcBodyMarkup = Nvl(loParentRenderEngine.cPopupFormBodyMarkup, loParentRenderEngine.GetPopupFormBodyMarkup())
-		lcBodyMarkup = Strtran(lcBodyMarkup, '__ControlSource__', this.ControlSource, 1, 1 ,1)
+		lcBodyMarkup = Strtran(lcBodyMarkup, '__ControlSource__', This.ControlSource, 1, 1 ,1)
 		lcBodyMarkup = Strtran(lcBodyMarkup, 'Thisform.oDataObject.', '', 1, 1000 ,1)
 		loForm.cBodyMarkup = lcBodyMarkup
 		loForm.oRenderEngine.lGenerateEditButtonForEditBoxes = .f.
@@ -2612,16 +2606,24 @@ Define Class DF_MemoFieldEditBox as EditBox
 	
 	*---------------------------------------------------------------------------------------
 	Procedure Destroy
+
 		This.oRenderEngine = .null.
+
 	Endproc
-	
 
 Enddefine
 
+*=======================================================================================
 Define Class DynamicFormDeskTop As DynamicForm
+
 	Desktop = .T.
+	
 Enddefine
 
+*=======================================================================================
 Define Class DynamicFormShowWindow As DynamicForm
+
 	ShowWindow = 1
+	
 Enddefine   
+ 
