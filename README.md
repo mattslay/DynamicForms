@@ -534,6 +534,15 @@ Even with rendering errors, the form can still be displayed, but the error contr
 ![](Documentation/Images/image_thumb_7.png "Form sample with error field")
 
 ### Release history
+ 
+
+2017-08-30 = Ver 1.9.1 : Fixed spelling, capitalization, formatting (no functional changes).
+
+2017-08-27 = Ver 1.9.0 Production release, Migrated from VFPx/CodePlex to GitHub
+
+2014-09-29 = Ver 1.8.2 Beta
+
+2013-10-31 = Ver 1.7.0 Alpha
 
 2012-10-18 = Alpha 1.5.0 released.
 
