@@ -2,6 +2,13 @@ Dynamic Forms is a new way to create forms based on a "markup syntax" similar to
  
 The result will be a dynamically constructed form, specified in code, rather than manually creating it in the Form Designer.
 
+== Ver 1.9.1 (2017-08-30)
+*-- Fixed spelling, capitalization, formatting (no functional changes).
+
+== Ver 1.9.0 (2017-08-27)
+*-- Production release, Migrated from VFPx/CodePlex to GitHub
+
+== Ver 1.8.2 Beta Release (2014-09-29)
 
 === Ver 1.7.0 Alpha (2013-10-31)
 *-- 1. Added class DF_EditButton which can be used to display a DF_EditButton beside editbox classes.

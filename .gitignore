@@ -1,7 +1,8 @@
 *.bak
+*.BAK
 *.fxp
+*.FXP
 FOXUSER.*
 *_ref.*
-.hg
-/.hgignore
+*.zip
 DeployDynamicForm.ps1

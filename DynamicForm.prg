@@ -9,7 +9,7 @@
 *-- 
 *-- You can automatically download this Component and its updates through "Thor - Check for Updates".
 *--        To learn more about Thor and its Tools and Updaters for FoxPro, see: 
-*--        http://vfpx.codeplex.com/wikipage?title=Thor%20One-Cick%20Update
+*--        https://github.com/VFPX/Thor/blob/master/Docs/Thor_one-click_update.md
 *--
 *-- User Discussions Group: https://groups.google.com/forum/#!forum/foxprodynamicforms
 *--
