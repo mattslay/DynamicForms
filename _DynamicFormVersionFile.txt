@@ -5,6 +5,13 @@ Dynamic Forms is a new way to create forms based on a "markup syntax" similar to
 
 The result will be a dynamically constructed form, specified in code, rather than manually creating it in the Form Designer.
 
+== Ver 1.9.1 (2017-08-30)
+*-- Fixed spelling, capitalization, formatting (no functional changes).
+
+== Ver 1.9.0 (2017-08-27)
+*-- Production release, Migrated from VFPx/CodePlex to GitHub
+
+== Ver 1.8.2 Beta Release (2014-09-29)
 
 === Ver 1.7.0 Alpha (2013-10-31)
 *-- 1. Added oRenderOrder colleciton to each Field in the oFieldList so the attributes
@@ -188,10 +195,10 @@ The result will be a dynamically constructed form, specified in code, rather tha
 EndText 
 
 
-AddProperty(toUpdateInfo, 'AvailableVersion', 'Dynamic Form - 1.7.0 Alpha - October 31, 2013 - 20131031')
-AddProperty(toUpdateInfo, 'SourceFileUrl', 'http://bit.ly/DynamicForm_Alpha')
-AddProperty(toUpdateInfo, 'LinkPrompt', 'Dynamic Form Home Page')
-AddProperty(toUpdateInfo, 'Link', 'http://vfpx.codeplex.com/wikipage?title=Dynamic%20Forms')
+AddProperty(toUpdateInfo, 'AvailableVersion', 'Dynamic Form - 1.9.1 - August 30, 2017 - 20170830')
+AddProperty(toUpdateInfo, 'SourceFileUrl', 'http://bit.ly/DynamicForms_Ver_1_9')
+AddProperty(toUpdateInfo, 'LinkPrompt', 'Dynamic Forms Home Page')
+AddProperty(toUpdateInfo, 'Link', 'https://github.com/mattslay/DynamicForms')
 AddProperty(toUpdateInfo, 'Notes', lcNote)
 
 Execscript (_Screen.cThorDispatcher, 'Result=', toUpdateInfo)
