@@ -1,4 +1,4 @@
-# DynamicForms
+# Dynamic Forms
 Dynamically generate UI forms from objects or cursors via a "markup syntax” in your code.
 
 (Note: Documentation pages are in the process of being migrated from the original VFPx/CodePlex site to this GitHub repo.)
